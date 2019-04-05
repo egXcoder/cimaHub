@@ -66,13 +66,16 @@
                 @foreach ($movies as $movie)
                 <div class="movie">
                     <img src='{{$movie->image_url}}'>
+                   
+                    <div class="movie-view-count__container">
+                        <p class="view-count">{{$movie->views}} &nbsp <i class="fas fa-eye"></i> </p>
+                    </div>
+                    
                     <div class="movie-title__container">
                         <h2 class='movie-title'>{{$movie->name}}</h2>
 
                     </div>
-                    <div class="movie-view-count__container">
-                        <p class="view-count">{{$movie->views}} &nbsp <i class="fas fa-eye"></i> </p>
-                    </div>
+                    
 
                     <div class="overdrop-top">
 

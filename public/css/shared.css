@@ -223,14 +223,15 @@ body{
 }
 
 .movie .movie-title__container{
-    top: 60%;
+    top: 120px;
     position: relative;
     bottom: 0px;
+    font-size: 80%
 }
 
 .movie .movie-view-count__container{
         position: relative;
-    bottom: 74px;
+    top: -5px;
 }
 
 

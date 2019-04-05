@@ -68,15 +68,12 @@
         </div>
         
         <div class="servers-section">
-            <div class="server">سيرفر 1</div>
-            <div class="server">سيرفر 2</div>
-            <div class="server">سيرفر 3</div>
-            <div class="server">سيرفر 4</div>
-            <div class="server">سيرفر 5</div>
-            <div class="server">سيرفر 6</div>
-            <div class="server">سيرفر 7</div>
-            <div class="server">سيرفر 8</div>
-           
+            <div class="server"><a href="#">سيرفر 1 </a></div>
+            <div class="server"><a href="#">سيرفر 1 </a></div>
+            <div class="server"><a href="#">سيرفر 1 </a></div>
+            <div class="server"><a href="#">سيرفر 1 </a></div>
+            <div class="server"><a href="#">سيرفر 1 </a></div>
+            
           
         
         </div>

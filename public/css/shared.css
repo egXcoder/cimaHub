@@ -381,6 +381,11 @@ body {
     color: white;
 }
 
+
+
+
+
+
 @media (max-width:70rem) {
     .main-header__navbar {
         display: none;

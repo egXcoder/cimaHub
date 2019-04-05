@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\movie;
+use App\Movie;
 use Illuminate\Http\Request;
 
-class MovieController extends Controller
+class MoviesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $movies = Movie::latest()->get();
+        return view('index',['movies'=>$movies]);
     }
 
     /**

@@ -4,6 +4,8 @@ use App\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 use App\Category;
+use App\ServerLinksForMovies;
+use App\Movie;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,11 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 $factory->define(Category::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name
-    ];
+    return [];
+});
+$factory->define(ServerLinksForMovies::class, function (Faker $faker) {
+    return [];
+});
+$factory->define(Movie::class, function (Faker $faker) {
+    return [];
 });

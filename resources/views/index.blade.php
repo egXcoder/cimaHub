@@ -64,15 +64,17 @@
             <div id="movies-section">
             
                 @foreach ($movies as $movie)
+                
                 <div class="movie">
-                    <img src='{{$movie->image_url}}'>
+                    <a href="#"><img src='{{$movie->image_url}}'></a>
                    
                     <div class="movie-view-count__container">
                         <p class="view-count">{{$movie->views}} &nbsp <i class="fas fa-eye"></i> </p>
                     </div>
                     
                     <div class="movie-title__container">
-                        <h2 class='movie-title'>{{$movie->name}}</h2>
+                        
+                       <a href="#"> <h2 class='movie-title'>{{$movie->name}}</h2></a>
 
                     </div>
                     
@@ -83,6 +85,7 @@
                     <div class="overdrop-bottom">
 
                     </div>
+                    
 
                 </div>
                 @endforeach
@@ -121,7 +124,7 @@
 
     </footer>
 
-
+<script src="js/shared.js"></script>
 
 
 </body>

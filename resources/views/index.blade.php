@@ -62,22 +62,24 @@
         <div id="main">
 
             <div id="movies-section">
-            
+
                 @foreach ($movies as $movie)
-                
+
                 <div class="movie">
                     <a href="#"><img src='{{$movie->image_url}}'></a>
-                   
+
                     <div class="movie-view-count__container">
                         <p class="view-count">{{$movie->views}} &nbsp <i class="fas fa-eye"></i> </p>
                     </div>
-                    
+
                     <div class="movie-title__container">
-                        
-                       <a href="#"> <h2 class='movie-title'>{{$movie->name}}</h2></a>
+
+                        <a href="#">
+                            <h2 class='movie-title'>{{$movie->name}}</h2>
+                        </a>
 
                     </div>
-                    
+
 
                     <div class="overdrop-top">
 
@@ -85,7 +87,7 @@
                     <div class="overdrop-bottom">
 
                     </div>
-                    
+
 
                 </div>
                 @endforeach
@@ -96,21 +98,7 @@
         </div>
 
 
-
-        <div class="pages-navigation">
-
-            <a href="#" class="right-arrow"><i class="fas fa-arrow-right"></i></a>
-            <div>
-                <a href='#'>1</a>
-                <a href='#'>2</a>
-                <a href='#'>3</a>
-                <a href='#'>4</a>
-                <a href='#'>5</a>
-                <a href='#'>6</a>
-                <a href='#'>...</a>
-            </div>
-            <a href="#" class="left-arrow"><i class="fas fa-arrow-left"></i></a>
-        </div>
+        {{$movies->links()}}
 
     </main>
 
@@ -124,7 +112,7 @@
 
     </footer>
 
-<script src="js/shared.js"></script>
+    <script src="js/shared.js"></script>
 
 
 </body>

@@ -14,7 +14,7 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movie::latest()->get();
+        $movies = Movie::paginate(12);
         return view('index',['movies'=>$movies]);
     }
 

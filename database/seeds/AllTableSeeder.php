@@ -22,7 +22,7 @@ class AllTableSeeder extends Seeder
         factory('App\Category')->create(['name' => 'افلام انمى']);
 
         $movies = unserialize(Storage::disk('local')->get('serializedMovieArray.txt'));
-        for ($i = 0; $i < count($movies); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             factory('App\Movie')->create([
                 'name' => $movies[$i]['name'],
                 'description' => $movies[$i]['description'],

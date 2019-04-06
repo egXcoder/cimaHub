@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    
+
     <button id="scrollToTopButton" onclick="scrollToTop(300,3);"><i class="fa fa-arrow-up"></i></button>
 
 
@@ -44,15 +44,17 @@
 
 
         <div class="logo"><i class="fas fa-tv"></i>
-            <a href="#"><h3><span style="font-size: 130%">C</span>inemaHub</h3></a>
+            <a href="#">
+                <h3><span style="font-size: 130%">C</span>inemaHub</h3>
+            </a>
         </div>
 
 
 
     </header>
-    
+
     <div class="backdrop"></div>
-    
+
     <nav class="mobile-nav">
         <ul class="mobile-nav__items">
             <li class="mobile-nav__item">
@@ -70,8 +72,8 @@
             <li class="mobile-nav__item mobile-nav__item--cta">
                 <a href="start-hosting/index.html">أنمي</a>
             </li>
-            
-            
+
+
         </ul>
     </nav>
 
@@ -92,16 +94,21 @@
                 @foreach ($movies as $movie)
 
                 <div class="movie">
-                    
-                    <div class="quality-label">BlueRay</div>
+
+                    @if($movie->quality!=='0' && $movie->quality!==null)
+                    <div class="quality-label">{{$movie->quality}}</div>
+                    @endif
+
+                    @if($movie->ratings!=0 && $movie->ratings!==null)
                     <div class="rating-star"><i class="fas fa-star"></i></div>
-                    <span class='rating-value'>7.8</span>
-                    
+                    <span class='rating-value'>{{$movie->ratings}}</span>
+                     @endif
+
                     <a href="#"><img src='{{$movie->image_url}}'></a>
                     <div class="movie-view-count__container">
 
 
-                        <p class="view-count">{{$movie->quality}} {{$movie->ratings}} &nbsp <i class="fas fa-eye"></i> </p>
+                        <p class="view-count"> &nbsp <i class="fas fa-eye"></i> </p>
                     </div>
 
                     <div class="movie-title__container">
@@ -118,8 +125,8 @@
                     <div class="overdrop-bottom">
 
                     </div>
-                            
-                    
+
+
 
                 </div>
                 @endforeach
@@ -137,7 +144,7 @@
 
 
     <footer id="main-footer">
-<!--
+        <!--
         <div class="go-to-top">
             <i class="fas fa-arrow-up"></i>
         </div>

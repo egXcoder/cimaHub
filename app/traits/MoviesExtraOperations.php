@@ -28,7 +28,7 @@ trait MoviesExtraOperations
     {
         $qualities = ['BluRay', 'DVDRip', 'HDCam', 'HDRip', 'HDTV', 'Web-dl'];
         foreach ($qualities as $quality) {
-            $pattern = "!($quality)!";
+            $pattern = "!($quality)!i";
             if (preg_match($pattern, $name, $matches)) {
                 return trim(preg_replace($pattern, '', $name));
             }
@@ -56,11 +56,13 @@ trait MoviesExtraOperations
         return null;
     }
 
-    public function getRatingsFromImbd($movie_name)
+    public function getRatingsFromImbd()
     {
+        $movie_name = $this->getName();
         $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901';
         if ($this->ratings == null) {
             $obj = json_decode(file_get_contents($url), true);
+            var_dump($url);
             if (array_key_exists('imdbRating', $obj)) {
                 return $obj['imdbRating'];
             }
@@ -71,8 +73,7 @@ trait MoviesExtraOperations
     public static function populateRatingsToDatabase()
     {
         Movie::latest()->each(function ($movie) {
-            $name = $movie->getName();
-            $ratings = $movie->getRatingsFromImbd(trim($name));
+            $ratings = $movie->getRatingsFromImbd();
             if ($ratings != null && $ratings != 'N/A') {
                 $movie->update(['ratings' => $ratings]);
             }

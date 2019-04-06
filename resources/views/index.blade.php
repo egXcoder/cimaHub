@@ -92,6 +92,11 @@
                 @foreach ($movies as $movie)
 
                 <div class="movie">
+                    
+                    <div class="quality-label">BlueRay</div>
+                    <div class="rating-star"><i class="fas fa-star"></i></div>
+                    <span class='rating-value'>7.8</span>
+                    
                     <a href="#"><img src='{{$movie->image_url}}'></a>
                     <div class="movie-view-count__container">
 

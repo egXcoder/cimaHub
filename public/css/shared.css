@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Changa|Montserrat:400,700|Tajawal:400,700');
 :root {
-    --primary-color: #0b0f21;
-    --secondary-color: #273365;
+    --primary-color: #2B99E8;
+    --secondary-color: #303030;
 }
 
 /*
@@ -234,11 +234,13 @@ body {
     align-items: center;
 }
 
+/*
 .go-to-top i {
     color: white;
     font-size: 200%;
     cursor: pointer
 }
+*/
 
 #container {
     min-height: 100%;
@@ -272,7 +274,58 @@ body {
     border-radius: 0.5rem;
     overflow: hidden;
     text-align: center;
-    box-shadow: 2px 2px 5px 2px var(--primary-color);
+}
+
+
+.quality-label{
+    position: absolute;
+    top: 25px;
+    left: -65px;
+    width: 220px;
+    height: 30px;
+    background: var(--primary-color);
+    z-index: 700;
+    transform: rotate(-44deg);
+    color: white;
+    font-size: 120%;
+    padding-top: 2px;
+    text-align: center;
+/*    border: 2px solid black;*/
+    box-shadow: 0 2px 8px black;
+    text-shadow: 1px 1px 4px black;
+}
+
+
+.rating-star{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 700;
+    color: yellow;
+    font-size: 2.3rem;
+    text-shadow: 0 0 5px white;
+}
+
+
+
+
+.rating-value{
+    display: block;
+    position: absolute;
+    font-size: 95%;
+    color: black;
+    top: 19px;
+    right: 15px;
+    width: 10px;
+    height: 10px;
+    z-index: 701;
+    font-weight: bold;
+    
+}
+
+
+.movie:hover{
+    box-shadow: 0px 0px 10px var(--primary-color);
 }
 
 .movie-title__container {
@@ -324,7 +377,7 @@ body {
     position: relative;
     /* bottom: 7.8rem; */
     color: white;
-    z-index: 600;
+    z-index: 900;
     /* text-align: center; */
     /* margin: 0 auto; */
     display: inline-block;
@@ -333,7 +386,7 @@ body {
 .movie .view-count {
     position: relative;
     bottom: 0;
-    z-index: 400;
+    z-index: 900;
     color: white;
 }
 
@@ -353,7 +406,7 @@ body {
     height: 0;
     background: var(--secondary-color);
     opacity: 0.75;
-    z-index: 100;
+    z-index: 800;
     text-align: center;
     /*    transform: translateY(43px;)*/
     transition: height 0.5s ease-in;
@@ -366,7 +419,7 @@ body {
     width: 100%;
     height: 55%;
     background: var(--secondary-color);
-    z-index: 100;
+    z-index: 800;
     text-align: center;
     color: white;
     transition: opacity 0.5s ease-in-out;
@@ -380,7 +433,7 @@ body {
 }
 
 .movie:hover .overdrop-top {
-    display: block;
+/*    display: block;*/
     /*    height: 15%;*/
 }
 
@@ -449,7 +502,7 @@ body {
 
 #scrollToTopButton {
   position: fixed;
-  bottom: 40px;
+  bottom: 70px;
   left: 40px;
   border-radius: 50%;
   cursor: pointer;
@@ -465,8 +518,14 @@ body {
   transform: scale(0);
   opacity: 0;
   transition: 0.2s;
-    border: 5px solid black;
+    border: 6px solid var(--primary-color);
 }
+
+#scrollToTopButton i{
+    color: var(--primary-color)
+}
+
+
 #scrollToTopButton.show {
   visibility: visible;
   transform: scale(1);

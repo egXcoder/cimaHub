@@ -22,7 +22,7 @@ moviesArr.forEach( function(cur){
            overdropBottomArr[moviesArr.indexOf(cur)].classList.add('animate-overdrop-bottom');
            overdropTopArr[moviesArr.indexOf(cur)].classList.add('animate-overdrop-top');
            
-           viewCountArr[moviesArr.indexOf(cur)].classList.add('animate-view-count__container');
+//           viewCountArr[moviesArr.indexOf(cur)].classList.add('animate-view-count__container');
    
            
            titleArr[moviesArr.indexOf(cur)].classList.add('animate-title__container');
@@ -36,7 +36,7 @@ moviesArr.forEach( function(cur){
            overdropTopArr[moviesArr.indexOf(cur)].classList.remove('animate-overdrop-top');
            
            
-           viewCountArr[moviesArr.indexOf(cur)].classList.remove('animate-view-count__container');
+//           viewCountArr[moviesArr.indexOf(cur)].classList.remove('animate-view-count__container');
            
            
            titleArr[moviesArr.indexOf(cur)].classList.remove('animate-title__container');

@@ -511,10 +511,12 @@ body {
         grid-template-columns: repeat(2, 15rem)
     }
     
+/*
     .pagination li {
     color: white;
     padding: 10px 5px;
     }
+*/
     
     .pagination li:nth-of-type(7),
     .pagination li:nth-of-type(6),
@@ -523,7 +525,7 @@ body {
     }
 }
 
-@media (max-width: 39rem){
+@media (max-width: 40rem){
     .pagination li:nth-of-type(4),
     .pagination li:nth-of-type(3),
     .pagination li:nth-of-type(2){

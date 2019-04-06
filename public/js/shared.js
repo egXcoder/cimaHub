@@ -42,14 +42,70 @@ moviesArr.forEach( function(cur){
            titleArr[moviesArr.indexOf(cur)].classList.remove('animate-title__container');
            
            },10)}
-        
-        
-        
-//        console.log(cur.index);
-    });
+        });
 
 
-//console.log(moviesArr)
+
+    document.querySelector(".toggle-button").onclick = function(){
+        
+        document.querySelector('.backdrop').style.display = 'block'; 
+        
+        setTimeout(function(){
+            document.querySelector('.backdrop').classList.add('show');
+            document.querySelector('.mobile-nav__items').style.display = 'flex';
+        },100);
+    
+        setTimeout(function(){
+            document.querySelector('.mobile-nav__items').style.display = 'flex';
+        },500);
+    
+        
+        
+        document.querySelector('.mobile-nav').style.display = 'block';
+   
+        setTimeout(function(){
+            document.querySelector('.mobile-nav').classList.add('shownav');
+        } ,10)
+        
+        
+        
+    };
+        
+
+
+var closeBackdrop = function(){
+        document.querySelector('.backdrop').classList.remove('show');
+    
+        setTimeout(function(){
+            document.querySelector('.backdrop').style.display = 'none';
+        }, 200)
+}
+
+
+
+document.querySelector('.backdrop').onclick = function(){
+    
+    
+    document.querySelector('.mobile-nav').classList.remove('shownav');
+    setTimeout(function(){
+        document.querySelector('.mobile-nav').style.display = 'none';
+    } ,600)
+    
+    document.querySelector('.mobile-nav__items').style.display = 'none';
+    
+    
+    closeBackdrop();
+   
+};
+
+
+
+
+
+
+
+
+
 
 
 

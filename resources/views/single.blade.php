@@ -48,6 +48,32 @@
 
         </header>
         
+        <div class="backdrop"></div>
+    
+    <nav class="mobile-nav">
+        <ul class="mobile-nav__items">
+            <li class="mobile-nav__item">
+                <a href="packages/index.html">أفلام عربي</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="customers/index.html">مسلسلات عربي</a>
+            </li>
+            <li class="mobile-nav__item mobile-nav__item--cta">
+                <a href="start-hosting/index.html">أفلام أجنبي</a>
+            </li>
+            <li class="mobile-nav__item mobile-nav__item--cta">
+                <a href="start-hosting/index.html">مسلسلات أجنبي</a>
+            </li>
+            <li class="mobile-nav__item mobile-nav__item--cta">
+                <a href="start-hosting/index.html">أنمي</a>
+            </li>
+            
+            
+        </ul>
+    </nav>
+        
+        
+        
         <div id="movie-cover">
             <div class="movie-poster">
                 
@@ -104,7 +130,7 @@
 
         </footer>
     
-    
+    <script src="js/shared.js"></script>
     
     
 </body>

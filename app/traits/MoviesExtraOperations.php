@@ -8,13 +8,13 @@ trait MoviesExtraOperations
 {
     public function getName()
     {
-        $only_english = $this->getNameWithoutArabic($this->name);
+        $only_english = $this->getNameWithoutArabic();
         $name_without_numbers = $this->getNameWithoutNumbers($only_english);
         $name_pure = $this->getNameWithoutQuality($name_without_numbers);
         return trim($name_pure);
     }
 
-    public function getNameWithoutArabic($name)
+    public function getNameWithoutArabic()
     {
         return trim(preg_replace('![^A-Za-z0-9\s-]!', '', $this->name));
     }
@@ -62,7 +62,6 @@ trait MoviesExtraOperations
         $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901';
         if ($this->ratings == null) {
             $obj = json_decode(file_get_contents($url), true);
-            var_dump($url);
             if (array_key_exists('imdbRating', $obj)) {
                 return $obj['imdbRating'];
             }

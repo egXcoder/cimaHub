@@ -77,33 +77,54 @@
         
         
         <div id="movie-cover">
+            <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
             <div class="movie-poster">
-                
+            <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
             
             </div>
         
         </div>
         
-        <div id="movie-name"><h1>Aqua Man</h1></div>
+        <div id="movie-name"><h1>{{$movie->name}}</h1></div>
         
         <div class="movie-description">
             
-            <p>لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبورأنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا . يوت انيم أد مينيم فينايم,كيواس نوستري
-أكسير سيتاشن يللأمكو لابورأس نيسي يت أليكيوب أكس أيا كوممودو كونسيكيوات . ديواس
-أيوتي أريري دولار إن ريبريهينديرأيت فوليوبتاتي فيلايت أيسسي كايلليوم دولار أيو فيجايت
-نيولا باراياتيور. أيكسسيبتيور ساينت أوككايكات كيوبايداتات نون بروايدينت .</p>
+        <p>{{$movie->description}}</p>
         
         </div>
         
         <div class="servers-section">
+            @if ($movie->serverLinks->first()->server_1!=null)
             <div class="server"><a href="#">سيرفر 1 </a></div>
-            <div class="server"><a href="#">سيرفر 1 </a></div>
-            <div class="server"><a href="#">سيرفر 1 </a></div>
-            <div class="server"><a href="#">سيرفر 1 </a></div>
-            <div class="server"><a href="#">سيرفر 1 </a></div>
-            
-          
-        
+            @endif
+            @if ($movie->serverLinks->first()->server_2!=null)
+            <div class="server"><a href="#">سيرفر 2 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_3!=null)
+            <div class="server"><a href="#">سيرفر 3 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_4!=null)
+            <div class="server"><a href="#">سيرفر 4 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_5!=null)
+            <div class="server"><a href="#">سيرفر 5 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_6!=null)
+            <div class="server"><a href="#">سيرفر 6 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_7!=null)
+            <div class="server"><a href="#">سيرفر 7 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_8!=null)
+            <div class="server"><a href="#">سيرفر 8 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_9!=null)
+            <div class="server"><a href="#">سيرفر 9 </a></div>
+            @endif
+            @if ($movie->serverLinks->first()->server_10!=null)
+            <div class="server"><a href="#">سيرفر 10 </a></div>
+            @endif
+                  
         </div>
 
         

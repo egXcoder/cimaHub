@@ -26,6 +26,7 @@ class AllTableSeeder extends Seeder
             factory('App\Movie')->create([
                 'name' => $movies[$i]['name'],
                 'description' => $movies[$i]['description'],
+                'slug'=> static::getSlug($movies[$i]['name']),
                 'image_url' => $movies[$i]['image_url'],
                 'category_id' => $movies[$i]['category_id'],
                 'server_links' => static::createServerLinksForMovies($movies, $i)
@@ -50,5 +51,11 @@ class AllTableSeeder extends Seeder
             'server_9' => $movies[$i]['servers'][8],
             'server_10' => $movies[$i]['servers'][9],
         ])->id;
+    }
+
+    public static function getSlug($name)
+    {
+        $name_without_arabic =  trim(preg_replace('![^A-Za-z0-9\s-]!', '', $name));
+        return str_slug($name_without_arabic);
     }
 }

@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class Movie extends Model
 {
@@ -11,14 +10,18 @@ class Movie extends Model
 
     protected $guarded = [];
 
+    public function getSlug()
+    {
+        return str_slug($this->getNameWithoutArabic());
+    }
+
     public function serverLinks()
     {
-        return $this->hasMany('App\serverLinksMovies', 'id');
+        return $this->hasMany('App\ServerLinksForMovies', 'id');
     }
 
     public function getImageUrlAttribute($url)
     {
         return asset('') . $url;
     }
-
 }

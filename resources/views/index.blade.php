@@ -104,7 +104,7 @@
                     <span class='rating-value'>{{$movie->ratings}}</span>
                      @endif
 
-                    <a href="#"><img src='{{$movie->image_url}}'></a>
+                    <a href="{{route('movie.serverLinks',['slug'=>$movie->getSlug()])}}"><img src='{{$movie->image_url}}'></a>
                     <div class="movie-view-count__container">
 
 

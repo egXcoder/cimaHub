@@ -15,16 +15,16 @@ class ServerLinksForMovies extends Migration
     {
         Schema::create('server_links_movies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('server_1')->unique()->nullable();
-            $table->string('server_2')->unique()->nullable();
-            $table->string('server_3')->unique()->nullable();
-            $table->string('server_4')->unique()->nullable();
-            $table->string('server_5')->unique()->nullable();
-            $table->string('server_6')->unique()->nullable();
-            $table->string('server_7')->unique()->nullable();
-            $table->string('server_8')->unique()->nullable();
-            $table->string('server_9')->unique()->nullable();
-            $table->string('server_10')->unique()->nullable();
+            $table->string('server_1')->nullable();
+            $table->string('server_2')->nullable();
+            $table->string('server_3')->nullable();
+            $table->string('server_4')->nullable();
+            $table->string('server_5')->nullable();
+            $table->string('server_6')->nullable();
+            $table->string('server_7')->nullable();
+            $table->string('server_8')->nullable();
+            $table->string('server_9')->nullable();
+            $table->string('server_10')->nullable();
         });
     }
 

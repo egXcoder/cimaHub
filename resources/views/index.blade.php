@@ -67,9 +67,10 @@
 
                 <div class="movie">
                     <a href="#"><img src='{{$movie->image_url}}'></a>
-
                     <div class="movie-view-count__container">
-                        <p class="view-count">{{$movie->views}} &nbsp <i class="fas fa-eye"></i> </p>
+
+
+                        <p class="view-count">{{$movie->quality}} {{$movie->ratings}} &nbsp <i class="fas fa-eye"></i> </p>
                     </div>
 
                     <div class="movie-title__container">
@@ -82,12 +83,12 @@
 
 
                     <div class="overdrop-top">
-
                     </div>
                     <div class="overdrop-bottom">
 
                     </div>
-
+                            
+                    
 
                 </div>
                 @endforeach

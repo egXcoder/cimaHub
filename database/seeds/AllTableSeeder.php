@@ -26,7 +26,6 @@ class AllTableSeeder extends Seeder
                 'name' => $movies[$i]['name'],
                 'description' => $movies[$i]['description'],
                 'image_url' => $movies[$i]['image_url'],
-                'views' => 1000,
                 'category_id' => 1,
                 'server_links' => static::createServerLinksForMovies($movies, $i)
             ]);

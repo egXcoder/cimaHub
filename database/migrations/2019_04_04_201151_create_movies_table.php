@@ -18,7 +18,8 @@ class CreateMoviesTable extends Migration
             $table->string('name')->unique();
             $table->text('description');
             $table->string('image_url');
-            $table->float('views');
+            $table->double('ratings')->nullable();
+            $table->string('quality')->nullable();
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('server_links')->unsigned();
             $table->timestamps();

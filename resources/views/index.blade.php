@@ -44,7 +44,7 @@
 
 
         <div class="logo"><i class="fas fa-tv"></i>
-            <h3><span style="font-size: 130%">C</span>inemaHub</h3>
+            <a href="#"><h3><span style="font-size: 130%">C</span>inemaHub</h3></a>
         </div>
 
 

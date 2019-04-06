@@ -412,10 +412,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 2rem;
+    padding: 10px 2rem;
     width: 50%;
     min-height: 3rem;
-    border-radius: 1.5rem;
+    border-radius: 3rem;
     border: 2px solid white;
     margin: 8rem auto 0 auto;
     list-style: none;
@@ -424,7 +424,7 @@ body {
 
 .pagination li a {
     color: white;
-    padding: 10px 1rem;
+    padding: 5px 1rem;
     font-size: 130%;
     text-decoration: none;
 }
@@ -438,6 +438,12 @@ body {
     color: white;
 }
 
+.page-link[rel=next],
+.page-link[rel=prev]{
+    font-size: 2.5rem;
+    position: relative;
+    top: -3px;
+}
 
 
 
@@ -492,6 +498,11 @@ body {
     }
 }
 
+
+
+
+
+
 @media (max-width:54rem) {
     #search-bar {
         width: 20rem;
@@ -502,8 +513,21 @@ body {
     
     .pagination li {
     color: white;
-    padding: 20px 10px;
+    padding: 10px 5px;
+    }
     
+    .pagination li:nth-of-type(7),
+    .pagination li:nth-of-type(6),
+    .pagination li:nth-of-type(5){
+        display: none;
+    }
+}
+
+@media (max-width: 39rem){
+    .pagination li:nth-of-type(4),
+    .pagination li:nth-of-type(3),
+    .pagination li:nth-of-type(2){
+        display: none;
     }
 }
 
@@ -520,4 +544,8 @@ body {
         height: 70px;
         left: 20px;
     }
+    
+    
+    
+    
 }

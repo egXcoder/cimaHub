@@ -412,18 +412,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 15px 2rem;
     width: 50%;
-    height: 3rem;
+    min-height: 3rem;
     border-radius: 1.5rem;
     border: 2px solid white;
     margin: 8rem auto 0 auto;
     list-style: none;
+    flex-wrap: wrap;
 }
 
 .pagination li a {
     color: white;
-    padding: 0 1rem;
+    padding: 10px 1rem;
     font-size: 130%;
     text-decoration: none;
 }
@@ -436,6 +437,38 @@ body {
 .pagination li.active span {
     color: white;
 }
+
+
+
+
+#scrollToTopButton {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #fff;
+  padding: 0;
+  border: 0;
+  width: 90px;
+  height: 90px;
+/*  box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.3);*/
+  font-size: xx-large;
+  outline: 0;
+  visibility: hidden;
+  transform: scale(0);
+  opacity: 0;
+  transition: 0.2s;
+    border: 5px solid black;
+}
+#scrollToTopButton.show {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+  z-index: 600;
+}
+
+
 
 @media (max-width:70rem) {
     .main-header__navbar {
@@ -466,6 +499,12 @@ body {
     #movies-section {
         grid-template-columns: repeat(2, 15rem)
     }
+    
+    .pagination li {
+    color: white;
+    padding: 20px 10px;
+    
+    }
 }
 
 @media (max-width:34rem) {
@@ -474,5 +513,11 @@ body {
     }
     #movies-section {
         grid-template-columns: repeat(1, 15rem)
+    }
+    
+    #scrollToTopButton{
+        width: 70px;
+        height: 70px;
+        left: 20px;
     }
 }

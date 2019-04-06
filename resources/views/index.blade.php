@@ -16,6 +16,8 @@
 </head>
 
 <body>
+    
+    <button id="scrollToTopButton" onclick="scrollToTop(300,3);"><i class="fa fa-arrow-up"></i></button>
 
 
     <header class="main-header">
@@ -130,9 +132,11 @@
 
 
     <footer id="main-footer">
+<!--
         <div class="go-to-top">
             <i class="fas fa-arrow-up"></i>
         </div>
+-->
 
 
     </footer>

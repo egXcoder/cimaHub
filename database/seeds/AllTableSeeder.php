@@ -27,10 +27,11 @@ class AllTableSeeder extends Seeder
                 'name' => $movies[$i]['name'],
                 'description' => $movies[$i]['description'],
                 'image_url' => $movies[$i]['image_url'],
-                'category_id' => 1,
+                'category_id' => $movies[$i]['category_id'],
                 'server_links' => static::createServerLinksForMovies($movies, $i)
             ]);
         }
+        Movie::removeDuplications();
         Movie::populateQualityToDatabase();
         Movie::populateRatingsToDatabase();
     }

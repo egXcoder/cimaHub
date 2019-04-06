@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 use function Opis\Closure\unserialize;
+use App\Movie;
 
 class AllTableSeeder extends Seeder
 {
@@ -30,6 +31,8 @@ class AllTableSeeder extends Seeder
                 'server_links' => static::createServerLinksForMovies($movies, $i)
             ]);
         }
+        Movie::populateQualityToDatabase();
+        Movie::populateRatingsToDatabase();
     }
 
     private static function createServerLinksForMovies($movies, $i)

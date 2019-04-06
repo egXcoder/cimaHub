@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+App\Movie::removeDuplications();
 
 Route::get('/', 'MoviesController@index')->name('movies');
 

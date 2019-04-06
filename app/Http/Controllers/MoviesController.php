@@ -14,8 +14,8 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movie::paginate(12);
-        return view('index',['movies'=>$movies]);
+        $movies = Movie::paginate(16);
+        return view('index', ['movies' => $movies]);
     }
 
     /**

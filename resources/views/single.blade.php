@@ -41,14 +41,11 @@
                     </ul>
                 </nav>
             </div>
-            
-            
+                    
             <div class="logo"><i class="fas fa-tv"></i>
             <a href="{{route('home')}}"><h3><span style="font-size: 130%" >C</span>inemaHub</h3></a>
             </div>
             
-            
-
         </header>
         
         <div class="backdrop"></div>
@@ -69,21 +66,15 @@
             </li>
             <li class="mobile-nav__item mobile-nav__item--cta">
                 <a href="start-hosting/index.html">أنمي</a>
-            </li>
-            
-            
+            </li>    
         </ul>
     </nav>
-        
-        
         
         <div id="movie-cover">
             <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
             <div class="movie-poster">
-            <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
-            
+                <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
             </div>
-        
         </div>
         
         <div id="movie-name"><h1>{{$movie->name}}</h1></div>
@@ -95,41 +86,15 @@
         </div>
         <div class="servers-movie-container">
             <div class="servers-section">
-                @if ($serverLinks->server_1!=null)
-                <div id="server_1" class="server"><a>سيرفر 1 </a></div>
-                @endif
-                @if ($serverLinks->server_2!=null)
-                <div id="server_2" class="server"><a>سيرفر 2 </a></div>
-                @endif
-                @if ($serverLinks->server_3!=null)
-                <div id="server_3" class="server"><a>سيرفر 3 </a></div>
-                @endif
-                @if ($serverLinks->server_4!=null)
-                <div id="server_4" class="server"><a>سيرفر 4 </a></div>
-                @endif
-                @if ($serverLinks->server_5!=null)
-                <div id="server_5" class="server"><a>سيرفر 5 </a></div>
-                @endif
-                @if ($serverLinks->server_6!=null)
-                <div id="server_6" class="server"><a>سيرفر 6 </a></div>
-                @endif
-                @if ($serverLinks->server_7!=null)
-                <div id="server_7" class="server"><a>سيرفر 7 </a></div>
-                @endif
-                @if ($serverLinks->server_8!=null)
-                <div id="server_8" class="server"><a>سيرفر 8 </a></div>
-                @endif
-                @if ($serverLinks->server_9!=null)
-                <div id="server_9" class="server"><a>سيرفر 9 </a></div>
-                @endif
-                @if ($serverLinks->server_10!=null)
-                <div id="server_10" class="server"><a>سيرفر 10 </a></div>
-                @endif
 
+                @for ($i = 1; $i < count($serverLinks)+1; $i++)
+                <div id="{{$i}}" class="server"><a>سيرفر {{$i}} </a></div>    
+                @endfor
+                
             </div>
 
             <div class="video-container">
-                <iframe width=100% height=600px src="{{$serverLinks->server_1}}" frameborder=0 allowfullscreen></iframe>
+                <iframe width=100% height=600px src="{{$serverLinks[0]}}" frameborder=0 allowfullscreen></iframe>
             </div>
         </div>
         
@@ -138,15 +103,6 @@
             <input class="search-bar__input" placeholder="بحث..."></input>
         </div>
 
-        <main id="container">
-        
-            <div id="main">   
-
-                
-        
-    </main>
-    
-        
 
         <footer id="main-footer">
 <!--
@@ -162,44 +118,16 @@
     <script>
         $(document).ready(function(){
             $(".server").click(function(){
-                switch($(this).attr('id')){
-                    case 'server_1':
-                        server = "{{$serverLinks->server_1}}";
-                        break;
-                    case 'server_2':
-                        server = "{{$serverLinks->server_2}}"; 
-                        break;
-                    case 'server_3':
-                        server = "{{$serverLinks->server_3}}";
-                        break;
-                    case 'server_4':
-                        server = "{{$serverLinks->server_4}}"; 
-                        break;
-                    case 'server_5':
-                        server = "{{$serverLinks->server_5}}";
-                        break;
-                    case 'server_6':
-                        server = "{{$serverLinks->server_6}}"; 
-                        break;
-                    case 'server_7':
-                        server = "{{$serverLinks->server_7}}";
-                        break;
-                    case 'server_8':
-                        server = "{{$serverLinks->server_8}}"; 
-                        break;
-                    case 'server_9':
-                        server = "{{$serverLinks->server_9}}"; 
-                        break;
-                    case 'server_10':
-                        server = "{{$serverLinks->server_10}}"; 
-                        break;
-                }
-                $("iframe").attr('src',server); 
+                var selected_server_id = $(this).attr('id') - 1;
+                var list =["{{$serverLinks[0]}}"];
+                @foreach($serverLinks as $serverLink)
+                list.push("{{$serverLink}}");
+                @endforeach
+                $("iframe").attr('src',list[selected_server_id]); 
             });
         });
     </script>
     
 </body>
-    
     
 </html>

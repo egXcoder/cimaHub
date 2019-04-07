@@ -11,13 +11,15 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/main.css">
+    
+
 
 
 </head>
 
 <body>
 
-    <button id="scrollToTopButton" onclick="scrollToTop(300,3);"><i class="fa fa-arrow-up"></i></button>
+    <button id="scrollToTopButton" onclick="scrollToTop(300,3);"><i class="fas fa-angle-double-up"></i></button>
 
 
     <header class="main-header">

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'MoviesController@index')->name('movies');
+Route::get('/', 'MoviesController@index')->name('home');
 
 Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.serverLinks');
 

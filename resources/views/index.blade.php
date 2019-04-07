@@ -6,12 +6,12 @@
     <meta name="description" content="أفضل موقع عربي لمشاهدة الأفلام و المسلسلات و الأنمي بسهولة و سرعة">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
     <title>CinemaHub - الرئيسية</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/main.css">
-    
+
 
 
 
@@ -45,8 +45,9 @@
         </div>
 
 
-        <div class="logo"><i class="fas fa-tv"></i>
-            <a href="#">
+        <div class="logo">
+            <img style="vertical-align:middle;" width=26px height=20px src="/favicon.png">
+            <a href="{{route('home')}}">
                 <h3><span style="font-size: 130%">C</span>inemaHub</h3>
             </a>
         </div>
@@ -99,12 +100,9 @@
 
                     @if($movie->quality!=='0' && $movie->quality!==null)
                     <div class="quality-label">{{$movie->quality}}</div>
-                    @endif
-
-                    @if($movie->ratings!=0 && $movie->ratings!==null)
+                    @endif @if($movie->ratings!=0 && $movie->ratings!==null)
                     <div class="rating-star"><i class="fas fa-star"></i></div>
-                    <span class='rating-value'>{{$movie->ratings}}</span>
-                     @endif
+                    <span class='rating-value'>{{$movie->ratings}}</span> @endif
 
                     <a href="{{route('movie.serverLinks',['slug'=>$movie->getSlug()])}}"><img src='{{$movie->image_url}}'></a>
                     <div class="movie-view-count__container">
@@ -115,7 +113,7 @@
 
                     <div class="movie-title__container">
 
-                        <a href="#">
+                        <a href="{{route('movie.serverLinks',['slug'=>$movie->getSlug()])}}">
                             <h2 class='movie-title'>{{$movie->name}}</h2>
                         </a>
 
@@ -151,7 +149,8 @@
             <i class="fas fa-arrow-up"></i>
         </div>
 -->
-
+    <p style="margin-left:auto;margin-right:auto;color:white;font-weight:bold;">
+        Backend By EgXcoder && FrontEnd Mohamed Osama Copyright @ 2019</p>
 
     </footer>
 

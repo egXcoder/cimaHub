@@ -16,8 +16,10 @@
 
     <body>
         
+<!--
         <button id="scrollToTopButton" onclick="scrollToTop(300,3);"><i class="fa fa-arrow-up"></i></button>
         
+-->
         
         <header class="main-header">
 
@@ -92,43 +94,45 @@
         <p>{{$movie->description}}</p>
         
         </div>
-        
-        <div class="servers-section">
-            @if ($movie->serverLinks->first()->server_1!=null)
-            <div class="server"><a href="#">سيرفر 1 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_2!=null)
-            <div class="server"><a href="#">سيرفر 2 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_3!=null)
-            <div class="server"><a href="#">سيرفر 3 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_4!=null)
-            <div class="server"><a href="#">سيرفر 4 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_5!=null)
-            <div class="server"><a href="#">سيرفر 5 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_6!=null)
-            <div class="server"><a href="#">سيرفر 6 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_7!=null)
-            <div class="server"><a href="#">سيرفر 7 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_8!=null)
-            <div class="server"><a href="#">سيرفر 8 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_9!=null)
-            <div class="server"><a href="#">سيرفر 9 </a></div>
-            @endif
-            @if ($movie->serverLinks->first()->server_10!=null)
-            <div class="server"><a href="#">سيرفر 10 </a></div>
-            @endif
-                  
-        </div>
+        <div class="servers-movie-container">
+            <div class="servers-section">
+                @if ($movie->serverLinks->first()->server_1!=null)
+                <div class="server"><a href="#">سيرفر 1 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_2!=null)
+                <div class="server"><a href="#">سيرفر 2 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_3!=null)
+                <div class="server"><a href="#">سيرفر 3 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_4!=null)
+                <div class="server"><a href="#">سيرفر 4 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_5!=null)
+                <div class="server"><a href="#">سيرفر 5 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_6!=null)
+                <div class="server"><a href="#">سيرفر 6 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_7!=null)
+                <div class="server"><a href="#">سيرفر 7 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_8!=null)
+                <div class="server"><a href="#">سيرفر 8 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_9!=null)
+                <div class="server"><a href="#">سيرفر 9 </a></div>
+                @endif
+                @if ($movie->serverLinks->first()->server_10!=null)
+                <div class="server"><a href="#">سيرفر 10 </a></div>
+                @endif
 
-        
-        
+            </div>
+
+            <div class="video-container">
+                <video src="video.mp4" class="video" controls></video>
+            </div>
+        </div>
         
         <div id="search-bar">
             <span><i class="fas fa-search"></i></span>

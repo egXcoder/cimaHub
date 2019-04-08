@@ -15,12 +15,13 @@ class CreateMoviesTable extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->text('description');
             $table->string('slug');
             $table->string('image_url');
             $table->double('ratings')->nullable();
             $table->string('quality')->nullable();
+            $table->bigInteger('views')->default(0);
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('server_links')->unsigned();
             $table->timestamps();
@@ -29,7 +30,7 @@ class CreateMoviesTable extends Migration
                 ->on('categories')
                 ->onDelete('No Action')
                 ->onUpdate('No Action');
-            
+
             $table->foreign('server_links')
                 ->references('id')
                 ->on('server_links_movies')

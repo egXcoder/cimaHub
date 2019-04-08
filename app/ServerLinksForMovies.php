@@ -8,6 +8,7 @@ class ServerLinksForMovies extends Model
 {
     protected $table = 'server_links_movies';
     public $timestamps = false;
+    protected $guarded = [];
     
     public function getserverLinksAsArray(){
     $servers = [];

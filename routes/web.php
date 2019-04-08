@@ -15,6 +15,3 @@ Route::get('/', 'MoviesController@index')->name('home');
 
 Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.serverLinks');
 
-Route::get('/single', function () {
-    return view('single');
-});

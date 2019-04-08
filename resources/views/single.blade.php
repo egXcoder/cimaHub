@@ -94,7 +94,7 @@
             </div>
 
             <div class="video-container">
-                <iframe width=100% height=600px src="{{$serverLinks[0]}}" frameborder=0 allowfullscreen></iframe>
+                <iframe sandbox="allow-scripts allow-same-origin" width=100% height=600px src="{{$serverLinks[0]}}" frameborder=0 allowfullscreen></iframe>
             </div>
         </div>
         
@@ -119,7 +119,7 @@
         $(document).ready(function(){
             $(".server").click(function(){
                 var selected_server_id = $(this).attr('id') - 1;
-                var list =["{{$serverLinks[0]}}"];
+                var list = [];
                 @foreach($serverLinks as $serverLink)
                 list.push("{{$serverLink}}");
                 @endforeach

@@ -59,15 +59,16 @@ class AllTableSeeder extends Seeder
         return str_slug($name_without_arabic);
     }
 
-    public static function testServer($server_url){
+    public static function testServer($server_url)
+    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $server_url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
         $page = curl_exec($curl);
-        $errors = ['sorry','not found','Video has not been found'];
-        foreach($errors as $error){
-            if(preg_match('!.'.$error.'!i', $page, $matches)){
+        $errors = ['sorry', 'not found', 'Video has not been found', 'video has been blocked'];
+        foreach ($errors as $error) {
+            if (preg_match('!.' . $error . '!i', $page, $matches)) {
                 return null;
             }
         }

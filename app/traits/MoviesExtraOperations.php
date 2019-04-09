@@ -3,7 +3,6 @@
 namespace App\traits;
 
 use App\Movie;
-use Mockery\CountValidator\Exception;
 
 trait MoviesExtraOperations
 {
@@ -67,19 +66,20 @@ trait MoviesExtraOperations
     public function getRatingsAndImagesFromImbd()
     {
         $url = $this->initialize_imbd();
+        $array = [];
+
         if ($this->ratings == null || !preg_match('!^http!', $this->attributes['image_url'])) {
-            try{$obj = json_decode(file_get_contents($url), true);}catch(Exception $ex){return;}
+            try{$obj = json_decode(file_get_contents($url), true);}catch(\Exception $ex){return;}
             
-            $array = [];
+            
             if (array_key_exists('imdbRating', $obj)) {
                 $array['rating'] = $obj['imdbRating'];
             }
             if (array_key_exists('Poster', $obj)) {
                 $array['image'] = $obj['Poster'];
             }
-            return $array;
         }
-        return [];
+        return $array;
     }
 
     public static function populateRatingsAndQualityAndImbdImageToDatabase()
@@ -147,7 +147,7 @@ trait MoviesExtraOperations
                 $movie = Movie::find($duplication->id);
                 try {
                     unlink(public_path() . '/' . $movie->attributes['image_url']);
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                 }
                 Movie::find($duplication->id)->delete();
             }

@@ -5,10 +5,11 @@ namespace App\scrapers;
 use App\Movie;
 use App\ServerLinksForMovies;
 use App\scrapers\TestServer;
-use League\Flysystem\Exception;
 
 class InsertMovieToDatabase
 {
+ 
+
     public static function insert($formatted)
     {
         foreach ($formatted as $movie) {
@@ -21,8 +22,8 @@ class InsertMovieToDatabase
                     'category_id' => $movie['category_id'],
                     'server_links' => static::insertServers($movie)
                 ]);
-            } catch (Exception $ex) {
-                continue;
+            } catch (\Exception $ex) {
+                echo "x";
             }
         }
     }

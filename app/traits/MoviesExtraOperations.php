@@ -68,22 +68,23 @@ trait MoviesExtraOperations
     {
         $url = $this->initialize_imbd();
         if ($this->ratings == null || !preg_match('!^http!', $this->attributes['image_url'])) {
-            $obj = json_decode(file_get_contents($url), true);
+            try{$obj = json_decode(file_get_contents($url), true);}catch(Exception $ex){return;}
+            
             $array = [];
             if (array_key_exists('imdbRating', $obj)) {
                 $array['rating'] = $obj['imdbRating'];
             }
             if (array_key_exists('Poster', $obj)) {
-                $array['image'] = $obj['imdbRating'];
+                $array['image'] = $obj['Poster'];
             }
             return $array;
         }
-        return null;
+        return [];
     }
 
     public static function populateRatingsAndQualityAndImbdImageToDatabase()
     {
-        Movie::latest('id')->Where('category_id', 1)->take(60)->each(function ($movie) {
+        Movie::latest('id')->Where('category_id', 1)->take(60)->get()->each(function ($movie) {
             static::populateRatingsToDatabase($movie);
             static::populateQualityToDatabase($movie);
             static::populateImageUrlToDatabase($movie);
@@ -109,6 +110,8 @@ trait MoviesExtraOperations
         if(!array_key_exists("image",$RatingsAndImages)) return;
         $image_url = $RatingsAndImages['image'];
         if ($image_url != null && $image_url != 'N/A') {
+            unlink(public_path() . '/' . $movie->attributes['image_url']);
+
             $movie->update(['image_url' => $image_url]);
         }
     }
@@ -132,7 +135,7 @@ trait MoviesExtraOperations
     {
         $duplications_id = [];
 
-        Movie::latest('id')->Where('category_id', 1)->take(200)->each(function ($movie) use (&$duplications_id) {
+        Movie::latest('id')->Where('category_id', 1)->take(200)->get()->each(function ($movie) use (&$duplications_id) {
             $duplication = Movie::where('name', 'like', '%' . $movie->getName() . '%')
                 ->where('id', '!=', $movie->id)
                 ->where('ratings', $movie->ratings)

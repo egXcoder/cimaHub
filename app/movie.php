@@ -22,6 +22,6 @@ class Movie extends Model
 
     public function getImageUrlAttribute($url)
     {
-        return asset('') . $url;
+        return preg_match('!^http!',$url)? $url : asset('') . $url;
     }
 }

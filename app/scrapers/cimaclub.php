@@ -21,7 +21,7 @@ class CimaClub{
         $servers = $this->buildServersArray($movies['links']);
         $formatted = ReformatArrays::reformat($movies, $servers, $category_id);
         InsertMovieToDatabase::insert($formatted);
-        Movie::populateRatingsAndQualityToDatabase();
+        Movie::populateRatingsAndQualityAndImbdImageToDatabase();
         Movie::removeDuplications();
         return "\nsuccess";
     }

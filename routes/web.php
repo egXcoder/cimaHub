@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'MoviesController@index')->name('home');
+Route::get('/افلام اجنبى', 'MoviesController@index')->name('english.movies');
 
 Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.serverLinks');
 

@@ -71,7 +71,7 @@ trait MoviesExtraOperations
 
     public static function populateRatingsToDatabase()
     {
-        Movie::latest()->each(function ($movie) {
+        Movie::latest('id')->take(60)->each(function ($movie) {
             $ratings = $movie->getRatingsFromImbd();
             if ($ratings != null && $ratings != 'N/A') {
                 $movie->update(['ratings' => $ratings]);
@@ -84,7 +84,7 @@ trait MoviesExtraOperations
 
     public static function populateQualityToDatabase()
     {
-        Movie::latest()->each(function ($movie) {
+        Movie::latest('id')->take(60)->each(function ($movie) {
             $name = $movie->name;
             $description = $movie->description;
             $quality = $movie->getQualityFromName($name);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Movie;
+use App\Category;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -14,9 +15,13 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movie::latest('views')->paginate(16);
+        $movies = Movie::Where('category_id',1)->paginate(20);
         return view('index', ['movies' => $movies]);
     }
+    // public function getEnglishMovies(){
+    //     $movies = Category::find(1)->movies->get()->paginate(16);
+    //     return view('index', ['movies' => $movies]);
+    // }
 
     /**
      * Show the form for creating a new resource.

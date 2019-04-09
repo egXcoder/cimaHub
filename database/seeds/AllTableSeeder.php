@@ -21,20 +21,20 @@ class AllTableSeeder extends Seeder
         factory('App\Category')->create(['name' => 'مسلسلات انمى']);
         factory('App\Category')->create(['name' => 'افلام انمى']);
 
-        $movies = unserialize(Storage::disk('local')->get('serializedMovieArray.txt'));
-        for ($i = 0; $i < 10; $i++) {
-            factory('App\Movie')->create([
-                'name' => $movies[$i]['name'],
-                'description' => $movies[$i]['description'],
-                'slug' => static::getSlug($movies[$i]['name']),
-                'image_url' => $movies[$i]['image_url'],
-                'category_id' => $movies[$i]['category_id'],
-                'server_links' => static::createServerLinksForMovies($movies, $i)
-            ]);
-        }
-        Movie::removeDuplications();
-        Movie::populateQualityToDatabase();
-        Movie::populateRatingsToDatabase();
+        // $movies = unserialize(Storage::disk('local')->get('serializedMovieArray.txt'));
+        // for ($i = 0; $i < 10; $i++) {
+        //     factory('App\Movie')->create([
+        //         'name' => $movies[$i]['name'],
+        //         'description' => $movies[$i]['description'],
+        //         'slug' => static::getSlug($movies[$i]['name']),
+        //         'image_url' => $movies[$i]['image_url'],
+        //         'category_id' => $movies[$i]['category_id'],
+        //         'server_links' => static::createServerLinksForMovies($movies, $i)
+        //     ]);
+        // }
+        // Movie::removeDuplications();
+        // Movie::populateQualityToDatabase();
+        // Movie::populateRatingsToDatabase();
     }
 
     private static function createServerLinksForMovies($movies, $i)

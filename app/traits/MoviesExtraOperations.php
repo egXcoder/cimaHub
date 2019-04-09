@@ -3,6 +3,7 @@
 namespace App\traits;
 
 use App\Movie;
+use Mockery\CountValidator\Exception;
 
 trait MoviesExtraOperations
 {
@@ -55,11 +56,15 @@ trait MoviesExtraOperations
         }
         return null;
     }
+    public function initialize_imbd(){
+        $movie_name = $this->getName(); 
+        $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901';
+        return $url;
+    }
 
     public function getRatingsFromImbd()
     {
-        $movie_name = $this->getName();
-        $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901';
+        $url = $this->initialize_imbd();
         if ($this->ratings == null) {
             $obj = json_decode(file_get_contents($url), true);
             if (array_key_exists('imdbRating', $obj)) {
@@ -69,9 +74,16 @@ trait MoviesExtraOperations
         return null;
     }
 
-    public static function populateRatingsToDatabase()
-    {
+    public static function populateRatingsAndQualityToDatabase(){
         Movie::latest('id')->take(60)->each(function ($movie) {
+            static::populateRatingsToDatabase($movie);
+            static::populateQualityToDatabase($movie);
+        });
+
+    }
+    
+    public static function populateRatingsToDatabase($movie)
+    {
             $ratings = $movie->getRatingsFromImbd();
             if ($ratings != null && $ratings != 'N/A') {
                 $movie->update(['ratings' => $ratings]);
@@ -79,12 +91,11 @@ trait MoviesExtraOperations
             if ($movie->ratings === null) {
                 $movie->update(['ratings' => 0]);
             }
-        });
+        
     }
 
-    public static function populateQualityToDatabase()
+    public static function populateQualityToDatabase($movie)
     {
-        Movie::latest('id')->take(60)->each(function ($movie) {
             $name = $movie->name;
             $description = $movie->description;
             $quality = $movie->getQualityFromName($name);
@@ -95,8 +106,7 @@ trait MoviesExtraOperations
                 $movie->update(['quality' => $quality2]);
             } else {
                 $movie->update(['quality' => '0']);
-            }
-        });
+            }   
     }
 
     public static function removeDuplications()
@@ -112,6 +122,8 @@ trait MoviesExtraOperations
 
             if ($duplication != null && !in_array($movie->id, $duplications_id)) {
                 $duplications_id[] = $duplication->id;
+                $movie = Movie::find($duplication->id);
+                try {unlink(public_path() . '/' . $movie->attributes['image_url']);}catch(Exception $ex){}
                 Movie::find($duplication->id)->delete();
             }
         });

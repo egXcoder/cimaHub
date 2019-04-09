@@ -18,10 +18,10 @@ class MoviesController extends Controller
         $movies = Movie::Where('category_id',1)->paginate(20);
         return view('index', ['movies' => $movies]);
     }
-    // public function getEnglishMovies(){
-    //     $movies = Category::find(1)->movies->get()->paginate(16);
-    //     return view('index', ['movies' => $movies]);
-    // }
+    public function getArabicMovies(){
+        $movies = Movie::Where('category_id', 2)->paginate(20);
+        return view('index', ['movies' => $movies]);
+    }
 
     /**
      * Show the form for creating a new resource.

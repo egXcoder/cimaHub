@@ -33,8 +33,8 @@
 
             <nav class="main-header__navbar">
                 <ul>
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="أفلام عربي/index.html">أفلام عربي</a></li>
+                    <li><a href="{{route('home')}}">الرئيسية</a></li>
+                    <li><a href="{{route('movies.arabic')}}">أفلام عربي</a></li>
                     <li><a href="#">أفلام أجنبي</a></li>
                     <li><a href="#">مسلسلات عربي</a></li>
                     <li><a href="#">مسلسلات أجنبي</a></li>
@@ -46,9 +46,9 @@
 
 
         <div class="logo">
-            <img style="vertical-align:middle;" width=26px height=20px src="/favicon.png">
             <a href="{{route('home')}}">
-                <h3><span style="font-size: 130%">C</span>inemaHub</h3>
+                    <img style="vertical-align:middle;" width=200px height=50px src="/brand.png">
+                {{-- <h3><span style="font-size: 130%">C</span>inemaHub</h3> --}}
             </a>
         </div>
 
@@ -149,8 +149,8 @@
             <i class="fas fa-arrow-up"></i>
         </div>
 -->
-    <p style="margin-left:auto;margin-right:auto;color:white;font-weight:bold;">
-        Backend By EgXcoder && FrontEnd Mohamed Osama Copyright @ 2019</p>
+        <p style="margin-left:auto;margin-right:auto;color:white;font-weight:bold;">
+            Backend By EgXcoder && FrontEnd Mohamed Osama Copyright @ 2019</p>
 
     </footer>
 

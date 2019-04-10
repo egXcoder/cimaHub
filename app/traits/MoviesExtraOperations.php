@@ -6,7 +6,6 @@ use App\Movie;
 
 trait MoviesExtraOperations
 {
-    
     public function getName()
     {
         $only_english = $this->getNameWithoutArabic();
@@ -68,12 +67,12 @@ trait MoviesExtraOperations
     {
         $url = $this->initialize_imbd();
         $array = [];
-
+        $obj=[];
         if ($this->ratings == null || !preg_match('!^http!', $this->attributes['image_url'])) {
             try {
                 $obj = json_decode(file_get_contents($url), true);
             } catch (\Exception $ex) {
-                return;
+                return $array;
             }
 
             if (array_key_exists('imdbRating', $obj)) {
@@ -99,7 +98,7 @@ trait MoviesExtraOperations
     {
         $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
         if (!array_key_exists('rating', $RatingsAndImages)) {
-            return;
+            return [];
         }
         $ratings = $RatingsAndImages['rating'];
         if ($ratings != null && $ratings != 'N/A') {
@@ -120,7 +119,8 @@ trait MoviesExtraOperations
         if ($image_url != null && $image_url != 'N/A') {
             try {
                 unlink(public_path() . '/' . $movie->attributes['image_url']);
-            } catch (\Exception $ex) {}
+            } catch (\Exception $ex) {
+            }
 
             $movie->update(['image_url' => $image_url]);
         }
@@ -144,7 +144,9 @@ trait MoviesExtraOperations
     public static function removeDuplications($category_id)
     {
         $duplications_id = [];
-        if($category_id==2){return;}
+        if ($category_id == 2) {
+            return;
+        }
         Movie::latest('id')->Where('category_id', $category_id)->take(200)->get()->each(function ($movie) use (&$duplications_id) {
             $duplication = Movie::where('name', 'like', '%' . $movie->getName() . '%')
                 ->where('id', '!=', $movie->id)

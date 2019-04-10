@@ -4,12 +4,9 @@ namespace App\scrapers;
 
 use App\Movie;
 use App\ServerLinksForMovies;
-use App\scrapers\TestServer;
 
 class InsertMovieToDatabase
 {
- 
-
     public static function insert($formatted)
     {
         foreach ($formatted as $movie) {
@@ -23,7 +20,7 @@ class InsertMovieToDatabase
                     'server_links' => static::insertServers($movie)
                 ]);
             } catch (\Exception $ex) {
-                echo "x";
+                echo $ex->getMessage() . "\n";
             }
         }
     }
@@ -49,5 +46,4 @@ class InsertMovieToDatabase
         $name_without_arabic = trim(preg_replace('![^A-Za-z0-9\s-]!', '', $name));
         return str_slug($name_without_arabic);
     }
-
 }

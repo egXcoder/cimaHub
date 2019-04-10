@@ -138,7 +138,7 @@
 
 <div class="paginate-container">
 
-    {{$movies->links()}}
+    {{$movies->onEachSide(1)->links()}}
 </div>
 
     </main>

@@ -6,6 +6,7 @@ use App\Movie;
 
 trait MoviesExtraOperations
 {
+    
     public function getName()
     {
         $only_english = $this->getNameWithoutArabic();
@@ -69,9 +70,12 @@ trait MoviesExtraOperations
         $array = [];
 
         if ($this->ratings == null || !preg_match('!^http!', $this->attributes['image_url'])) {
-            try{$obj = json_decode(file_get_contents($url), true);}catch(\Exception $ex){return;}
-            
-            
+            try {
+                $obj = json_decode(file_get_contents($url), true);
+            } catch (\Exception $ex) {
+                return;
+            }
+
             if (array_key_exists('imdbRating', $obj)) {
                 $array['rating'] = $obj['imdbRating'];
             }
@@ -82,9 +86,9 @@ trait MoviesExtraOperations
         return $array;
     }
 
-    public static function populateRatingsAndQualityAndImbdImageToDatabase()
+    public static function populateRatingsAndQualityAndImbdImageToDatabase($category_id)
     {
-        Movie::latest('id')->Where('category_id', 1)->take(60)->get()->each(function ($movie) {
+        Movie::latest('id')->Where('category_id', $category_id)->take(60)->get()->each(function ($movie) {
             static::populateRatingsToDatabase($movie);
             static::populateQualityToDatabase($movie);
             static::populateImageUrlToDatabase($movie);
@@ -94,7 +98,9 @@ trait MoviesExtraOperations
     public static function populateRatingsToDatabase($movie)
     {
         $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
-        if(!array_key_exists("rating",$RatingsAndImages)) return;
+        if (!array_key_exists('rating', $RatingsAndImages)) {
+            return;
+        }
         $ratings = $RatingsAndImages['rating'];
         if ($ratings != null && $ratings != 'N/A') {
             $movie->update(['ratings' => $ratings]);
@@ -107,10 +113,14 @@ trait MoviesExtraOperations
     public static function populateImageUrlToDatabase($movie)
     {
         $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
-        if(!array_key_exists("image",$RatingsAndImages)) return;
+        if (!array_key_exists('image', $RatingsAndImages)) {
+            return;
+        }
         $image_url = $RatingsAndImages['image'];
         if ($image_url != null && $image_url != 'N/A') {
-            unlink(public_path() . '/' . $movie->attributes['image_url']);
+            try {
+                unlink(public_path() . '/' . $movie->attributes['image_url']);
+            } catch (\Exception $ex) {}
 
             $movie->update(['image_url' => $image_url]);
         }
@@ -131,11 +141,11 @@ trait MoviesExtraOperations
         }
     }
 
-    public static function removeDuplications()
+    public static function removeDuplications($category_id)
     {
         $duplications_id = [];
-
-        Movie::latest('id')->Where('category_id', 1)->take(200)->get()->each(function ($movie) use (&$duplications_id) {
+        if($category_id==2){return;}
+        Movie::latest('id')->Where('category_id', $category_id)->take(200)->get()->each(function ($movie) use (&$duplications_id) {
             $duplication = Movie::where('name', 'like', '%' . $movie->getName() . '%')
                 ->where('id', '!=', $movie->id)
                 ->where('ratings', $movie->ratings)

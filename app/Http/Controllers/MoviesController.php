@@ -15,12 +15,12 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movie::Where('category_id',1)->paginate(20);
-        return view('index', ['movies' => $movies]);
+        $movies = Movie::Where('category_id',1)->paginate(28);
+        return view('index', ['movies' => $movies,"pageTitle"=>"الرئيسية"]);
     }
     public function getArabicMovies(){
-        $movies = Movie::Where('category_id', 2)->paginate(20);
-        return view('index', ['movies' => $movies]);
+        $movies = Movie::Where('category_id', 2)->paginate(28);
+        return view('index', ['movies' => $movies,"pageTitle"=>"افلام عربى"]);
     }
 
     /**

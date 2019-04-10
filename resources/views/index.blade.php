@@ -83,12 +83,12 @@
 
 
 
-    <div id="search-bar">
-        <span><i class="fas fa-search"></i></span>
-        <input class="search-bar__input" placeholder="بحث..."></input>
-    </div>
-
+    
     <main id="container">
+        <div id="search-bar">
+            <span><i class="fas fa-search"></i></span>
+            <input class="search-bar__input" placeholder="بحث..."></input>
+        </div>
 
         <div id="main">
 
@@ -136,8 +136,10 @@
 
         </div>
 
+<div class="paginate-container">
 
-        {{$movies->links()}}
+    {{$movies->links()}}
+</div>
 
     </main>
 

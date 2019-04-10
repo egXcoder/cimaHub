@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Changa|Montserrat:400,700|Tajawal:400,700');
 :root {
-    --primary-color: #1f2956;
-    --secondary-color: #306BAC;
+    --primary-color: #321c4c;
+    --secondary-color: #272c46;
 }
 
 /*
@@ -53,15 +53,23 @@ body {
     display: inline-block;
     padding: 0 0.5rem;
     color: white;
+    font-weight: bold;
+    margin-left: .2rem;
+    margin-right: .2rem;
     text-decoration: none;
-    font-size: 110%;
-    border-left: 1px solid white;
+    font-size: 1.1rem;
+}
+
+.main-header__navbar ul li, .main-header__navbar li a {
+    transition: all .7s;
+}
+
+.main-header__navbar ul li:hover {
+    transform: translate(0px, -10px);
 }
 
 .main-header__navbar ul li:hover a {
-    color: #303030;
-    /*    font-weight: bold;*/
-    text-shadow: 0 0 5px white;
+    color: #f33488;
 }
 
 .main-header__navbar ul li:last-of-type {
@@ -114,21 +122,20 @@ body {
 #search-bar {
     display: block;
     position: relative;
+    z-index: 1;
     top: 5rem;
     width: 50rem;
     height: 2rem;
     margin: 0 auto;
     border-radius: 1.5rem;
-    background: #C4C4C4;
+    background: white;
     padding-right: 1.8rem;
 }
 
 .search-bar__input {
     display: block;
-    /*    text-align: right*/
     border-radius: 1.5rem 0 0 1.5rem;
-    background: #C4C4C4;
-    /*    background: white;*/
+    background: white;
     padding: 0.5rem;
     border: none;
     width: 100%;
@@ -214,11 +221,8 @@ body {
 }
 
 #main-footer {
-    background: var(--primary-color);
-    /*    position: relative;*/
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     width: 100%;
-    height: 4rem;
-    margin-top: 7rem;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -235,8 +239,21 @@ body {
 */
 
 #container {
+    background: url('../main-body.jpg');
+    background-size: cover;
     min-height: 100%;
-    margin-top: 1rem;
+    position: relative;
+}
+
+#container::after {
+    content: '';
+    background: #272c46;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: .85;
 }
 
 #main {
@@ -433,7 +450,12 @@ body {
 .movie:hover .movie-view-count__container {
     display: block;
 }
-
+.paginate-container{
+    position:relative;
+    z-index:1;
+    padding-top:7rem;
+    padding-bottom:3rem;
+}
 .pagination {
     display: flex;
     align-items: center;
@@ -443,7 +465,7 @@ body {
     min-height: 3rem;
     border-radius: 3rem;
     border: 2px solid white;
-    margin: 8rem auto 0 auto;
+    margin: 0rem auto 0rem auto;
     list-style: none;
     flex-wrap: wrap;
 }

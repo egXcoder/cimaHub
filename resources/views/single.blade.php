@@ -71,7 +71,9 @@
     </nav>
         
         <div id="movie-cover">
-            <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
+           <div class='cover__img-container'>
+               <img src="{{$movie->image_url}}" alt="{    {$movie->image_url}}" class='cover__img'>
+           </div> 
             <div class="movie-poster">
                 <img width="100%" height="100%" src="{{$movie->image_url}}" alt="{{$movie->image_url}}">
             </div>

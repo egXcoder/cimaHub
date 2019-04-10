@@ -16,11 +16,33 @@
     height:  35rem;
     background: grey;
 /*    top:0;*/
-    background: url(../HPcover.jpg);
-    background-size:cover;
-    background-repeat: no-repeat;
-    background-position: 0px -70px;
+    /* background: url(../HPcover.jpg);
+    background-size:cover; */
+    /* background-repeat: no-repeat;
+    background-position: 0px -70px; */
+    /* overflow: hidden; */
+
 }
+
+.cover__img-container{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.cover__img{
+    /* background-position: center; */
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    /* top: 10px; */
+    filter: blur(3px)
+}
+
+
 
 .movie-poster{
     position: absolute;
@@ -30,9 +52,9 @@
     top: 0;
     width: 18rem;
     height: 25rem;
-    background: url(../lotr.jpg);
+    /* background: url(../lotr.jpg);
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
     border: 8px solid white;
 }
 
@@ -198,9 +220,12 @@
     
     }
     
-    #movie-cover{
+    /* #movie-cover{
         background-position: center;
-    }
+        position: relative;
+    } */
+    
+    
     
     .movie-description{
         width: 95%;

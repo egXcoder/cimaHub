@@ -12,6 +12,7 @@ class Movie extends Model
 
     public function getSlug()
     {
+        if($this->category->id==2) return str_slug($this->name);
         return str_slug($this->getNameWithoutArabic());
     }
 
@@ -23,5 +24,8 @@ class Movie extends Model
     public function getImageUrlAttribute($url)
     {
         return preg_match('!^http!',$url)? $url : asset('') . $url;
+    }
+    public function category(){
+        return $this->belongsto('App\Category');
     }
 }

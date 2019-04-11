@@ -67,7 +67,7 @@ trait MoviesExtraOperations
     {
         $url = $this->initialize_imbd();
         $array = [];
-        $obj=[];
+        $obj = [];
         if ($this->ratings == null || !preg_match('!^http!', $this->attributes['image_url'])) {
             try {
                 $obj = json_decode(file_get_contents($url), true);
@@ -87,6 +87,9 @@ trait MoviesExtraOperations
 
     public static function populateRatingsAndQualityAndImbdImageToDatabase($category_id)
     {
+        if ($category_id == 2) {
+            return;
+        }
         Movie::latest('id')->Where('category_id', $category_id)->take(60)->get()->each(function ($movie) {
             static::populateRatingsToDatabase($movie);
             static::populateQualityToDatabase($movie);

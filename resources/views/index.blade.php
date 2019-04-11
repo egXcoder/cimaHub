@@ -9,6 +9,8 @@
     <link rel="icon" href="/favicon.png" type="image/x-icon">
     <title>CinemaHub - الرئيسية</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/main.css">
 
@@ -35,7 +37,6 @@
                 <ul>
                     <li><a href="{{route('home')}}">الرئيسية</a></li>
                     <li><a href="{{route('movies.arabic')}}">أفلام عربي</a></li>
-                    <li><a href="#">أفلام أجنبي</a></li>
                     <li><a href="#">مسلسلات عربي</a></li>
                     <li><a href="#">مسلسلات أجنبي</a></li>
                     <li><a href="#">أنمي</a></li>
@@ -47,8 +48,8 @@
 
         <div class="logo">
             <a href="{{route('home')}}">
-                    <img style="vertical-align:middle;" width=200px height=50px src="/brand.png">
-                {{-- <h3><span style="font-size: 130%">C</span>inemaHub</h3> --}}
+                <p class="brand">cima<span>hub</span></p>
+                <img style="vertical-align:middle;" width=80px height=50px src="/brand.png">
             </a>
         </div>
 
@@ -67,9 +68,6 @@
                 <a href="customers/index.html">مسلسلات عربي</a>
             </li>
             <li class="mobile-nav__item mobile-nav__item--cta">
-                <a href="start-hosting/index.html">أفلام أجنبي</a>
-            </li>
-            <li class="mobile-nav__item mobile-nav__item--cta">
                 <a href="start-hosting/index.html">مسلسلات أجنبي</a>
             </li>
             <li class="mobile-nav__item mobile-nav__item--cta">
@@ -83,7 +81,7 @@
 
 
 
-    
+
     <main id="container">
         <div id="search-bar">
             <span><i class="fas fa-search"></i></span>
@@ -96,7 +94,7 @@
 
                 @foreach ($movies as $movie)
 
-                <div class="movie">
+                <div class="movie" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-once="true">
 
                     @if($movie->quality!=='0' && $movie->quality!==null)
                     <div class="quality-label">{{$movie->quality}}</div>
@@ -136,10 +134,10 @@
 
         </div>
 
-<div class="paginate-container">
+        <div class="paginate-container">
 
-    {{$movies->onEachSide(1)->links()}}
-</div>
+            {{$movies->onEachSide(1)->links()}}
+        </div>
 
     </main>
 
@@ -155,9 +153,12 @@
             Backend By EgXcoder && FrontEnd Mohamed Osama Copyright @ 2019</p>
 
     </footer>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/shared.js"></script>
-
+    <script>
+        AOS.init();
+    </script>
+  
 
 </body>
 

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Movie;
-use App\Category;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MoviesController extends Controller
 {
@@ -15,7 +14,8 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        $movies = Movie::Where('category_id',1)->paginate(28);
+        $query = DB::raw('id/(SELECT MAX(id) FROM movies)+views/(SELECT MAX(views) FROM movies)+ratings/(SELECT MAX(ratings) FROM movies) DESC');
+        $movies = Movie::Where('category_id',1)->orderByRaw($query)->paginate(28);
         return view('index', ['movies' => $movies,"pageTitle"=>"الرئيسية"]);
     }
     public function getArabicMovies(){
@@ -23,69 +23,4 @@ class MoviesController extends Controller
         return view('index', ['movies' => $movies,"pageTitle"=>"افلام عربى"]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function show(movie $movie)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(movie $movie)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, movie $movie)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(movie $movie)
-    {
-        //
-    }
 }

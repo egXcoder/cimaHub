@@ -19,4 +19,9 @@ class Cleaner
             }
         }
     }
+    public static function fix_slug_for_arabic_movies(){
+        Movie::all()->each(function($movie){
+            $movie->update(['slug'=>str_slug($movie->name)]);
+        });
+    }
 }

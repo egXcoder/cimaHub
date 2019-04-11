@@ -19,9 +19,24 @@ class Cleaner
             }
         }
     }
-    public static function fix_slug_for_arabic_movies(){
-        Movie::all()->each(function($movie){
-            $movie->update(['slug'=>str_slug($movie->name)]);
+
+    public static function remove_movies_with_no_servers()
+    {
+        Movie::all()->each(function ($movie) {
+            $is_servers_exist = false;
+            foreach ($movie->serverLinks->first()->getserverLinksAsArray() as $server) {
+                if ($server !== null) {
+                    $is_servers_exist=true;
+                }
+            }
+            if(!$is_servers_exist) $movie->delete();
+        });
+    }
+
+    public static function fix_slug_for_arabic_movies()
+    {
+        Movie::all()->each(function ($movie) {
+            $movie->update(['slug' => str_slug($movie->name)]);
         });
     }
 }

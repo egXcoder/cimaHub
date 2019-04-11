@@ -58,7 +58,7 @@ class TestServer
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
         $page = curl_exec($curl);
-        $errors = ['sorry', 'not found', 'has not been found', 'has been blocked', 'deleted'];
+        $errors = ['sorry', 'not found', 'has not been found', 'has been blocked', 'deleted', 'not available'];
         foreach ($errors as $error) {
             if (preg_match('!.' . $error . '!i', $page, $matches)) {
                 return false;

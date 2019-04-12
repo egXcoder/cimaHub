@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
-    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/shared.css"> 
     @yield('extraStylesheets')
-    
+
 </head>
 
 <body>
@@ -68,24 +68,17 @@
         </ul>
     </nav>
 
-
-
     @yield('content')
-
-
 
     <footer id="main-footer">
 
         <p style="margin-left:auto;color:white;font-weight:bold;font-size:1.3rem;">
-            موقع cimahub لمشاهدة الافلام والمسلسلات اونلاين @ 2019</p>
+            موقع cimahub لمشاهدة الافلام الاجنبى والعربى اونلاين @ 2019</p>
 
     </footer>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/shared.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
+    @yield('scripts')
 
 </body>
 

@@ -262,6 +262,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    font-family: 'Tajawal', sans-serif;
     padding: 0 2rem;
     align-items: center;
 }

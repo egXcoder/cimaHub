@@ -23,7 +23,12 @@ class ReformatArrays
             $array['links'] = $moviesData['links'][$i];
             $array['category_id'] = $category_id;
             $image_name = $i . rand();
-            static::download_image($moviesData['image_url'][$i], $image_name);
+            try{
+                static::download_image($moviesData['image_url'][$i], $image_name);
+            }catch(\Exception $ex){
+                echo $ex->getMessage();
+                continue;
+            }
             $array['image_url'] = 'uploads/' . $image_name . '.jpg';
 
             $servers = [];

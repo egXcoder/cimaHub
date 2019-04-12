@@ -90,7 +90,7 @@ trait MoviesExtraOperations
         if ($category_id == 2) {
             return;
         }
-        Movie::latest('id')->Where('category_id', $category_id)->take(60)->get()->each(function ($movie) {
+        Movie::latest('id')->Where('category_id', $category_id)->take(200)->get()->each(function ($movie) {
             static::populateRatingsToDatabase($movie);
             static::populateQualityToDatabase($movie);
             static::populateImageUrlToDatabase($movie);

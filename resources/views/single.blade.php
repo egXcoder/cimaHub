@@ -16,6 +16,12 @@
             <div class="movie-description">
                 <p>{{$movie->description}}</p>
             </div>
+            @if ($movie->quality!==null&&$movie->quality!=='0')
+            <div class="quality">
+                <i class="fas fa-tv fa-5x"></i>
+                <p>{{$movie->quality}}</p>
+            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -37,20 +43,21 @@
 </div>
 </div>
 
+@endsection
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/shared.js"></script>
-<script>
-    $(document).ready(function(){
-                    $(".server").click(function(){
-                        var selected_server_id = $(this).attr('id') - 1;
-                        var list = [];
-                        @foreach($serverLinks as $serverLink)
-                        list.push("{{$serverLink}}");
-                        @endforeach
-                        $("iframe").attr('src',list[selected_server_id]); 
-                    });
-                });
-
-</script>
+@section('scripts')
+    <script>
+        window.addEventListener('popstate',e=>{location.href='/'});
+        $(document).ready(function(){
+            var list = [];
+            @foreach($serverLinks as $serverLink)
+                list.push("{{$serverLink}}");
+            @endforeach
+            $(".server").click(function(){
+                var selected_server_id = $(this).attr('id') - 1;
+                $("iframe").replaceWith(('<iframe sandbox="allow-scripts allow-same-origin" width=100% height=600px src="' + list[selected_server_id] + '" frameborder=0 allowfullscreen></iframe>')); 
+            });
+        });
+    
+    </script>
 @endsection

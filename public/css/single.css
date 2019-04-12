@@ -5,9 +5,9 @@
     padding-bottom: 50px;
 }
 
-
 .row {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .header .image-cover {
@@ -22,6 +22,39 @@
 .header .block {
     display: inline-block;
     margin-right: 20px;
+    flex: 50%;
+}
+
+.header .block .quality {
+    color: var(--third-color);
+    display: inline-block;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+}
+
+.header .block i {
+    transform:translateY(-5px)
+}
+
+.header .block .quality p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: white;
+    text-transform: capitalize;
+}
+
+@media(max-width:700px) {
+    .row {
+        text-align: center;
+        display: block;
+    }
+    .movie-description {
+        width: 100% !important;
+    }
 }
 
 #movie-name {

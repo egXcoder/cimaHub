@@ -15,12 +15,13 @@ class MoviesController extends Controller
     public function index()
     {
         $query = DB::raw('id/(SELECT MAX(id) FROM movies)+views/(SELECT MAX(views) FROM movies)+ratings/(SELECT MAX(ratings) FROM movies) DESC');
-        $movies = Movie::Where('category_id',1)->orderByRaw($query)->paginate(28);
-        return view('index', ['movies' => $movies,"pageTitle"=>"الرئيسية"]);
-    }
-    public function getArabicMovies(){
-        $movies = Movie::Where('category_id', 2)->paginate(28);
-        return view('index', ['movies' => $movies,"pageTitle"=>"افلام عربى"]);
+        $movies = Movie::Where('category_id', 1)->orderByRaw($query)->paginate(36);
+        return view('index', ['movies' => $movies, 'pageTitle' => 'الرئيسية', 'title' => 'home']);
     }
 
+    public function getArabicMovies()
+    {
+        $movies = Movie::Where('category_id', 2)->paginate(28);
+        return view('index', ['movies' => $movies, 'pageTitle' => 'افلام عربى', 'title' => 'arabic']);
+    }
 }

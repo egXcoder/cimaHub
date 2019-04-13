@@ -6,10 +6,17 @@
     <meta name="description" content="أفضل موقع عربي لمشاهدة الأفلام و المسلسلات و الأنمي بسهولة و سرعة">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.png" type="image/x-icon">
-    <title>CinemaHub - الرئيسية</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    @if ($title=='home')
+    <title>CimaHub - الرئيسية</title>
+    @endif
+    @if ($title=='arabic')
+    <title>CimaHub - افلام عربى</title>
+    @endif
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css"> 
     @yield('extraStylesheets')
@@ -30,17 +37,14 @@
 
             <nav class="main-header__navbar">
                 <ul>
-                    <li><a href="{{route('home')}}">الرئيسية</a></li>
-                    <li><a href="{{route('movies.arabic')}}">أفلام عربي</a></li>
-                    <li><a href="#">مسلسلات عربي</a></li>
-                    <li><a href="#">مسلسلات أجنبي</a></li>
-                    <li><a href="#">أنمي</a></li>
+                    <li><a @if($title==='home')class="active" @endif href="{{route('home')}}">الرئيسية</a></li>
+                    <li><a @if($title==='arabic')class="active" @endif href="{{route('movies.arabic')}}">أفلام عربي</a></li>
 
                 </ul>
             </nav>
         </div>
 
-        <div class="logo">
+        <div class="logo animated bounce">
             <a href="{{route('home')}}">
                 <p class="brand">cima<span>hub</span></p>
                 <img style="vertical-align:middle;" width=80px height=50px src="/brand.png">
@@ -56,15 +60,6 @@
             <li class="mobile-nav__item">
                 <a href="packages/index.html">أفلام عربي</a>
             </li>
-            <li class="mobile-nav__item">
-                <a href="customers/index.html">مسلسلات عربي</a>
-            </li>
-            <li class="mobile-nav__item mobile-nav__item--cta">
-                <a href="start-hosting/index.html">مسلسلات أجنبي</a>
-            </li>
-            <li class="mobile-nav__item mobile-nav__item--cta">
-                <a href="start-hosting/index.html">أنمي</a>
-            </li>
         </ul>
     </nav>
 
@@ -78,6 +73,16 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/shared.js"></script>
+    <script>
+        $(window).scroll(function(){
+            if(window.scrollY>80){
+                $('.logo').removeClass('animated').removeClass('bounce');
+            }else{
+                $('.logo').addClass('animated').addClass('bounce');
+            }
+        });
+        
+    </script>
     @yield('scripts')
 
 </body>

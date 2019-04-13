@@ -1,15 +1,11 @@
 @extends('Layout')
 
-@section('extraStylesheets')
-<link rel="stylesheet" href="css/main.css">    
-@endsection
-
 @section('content')
  
 <main id="container">
         <div id="search-bar">
             <span><i class="fas fa-search"></i></span>
-            <input class="search-bar__input" placeholder="بحث..."></input>
+            <input id="search" class="search-bar__input" placeholder="بحث..."></input>
         </div>
 
         <div id="main">

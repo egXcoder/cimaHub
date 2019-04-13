@@ -8,12 +8,28 @@ class ServerLinksForMoviesController extends Controller
 {
     public function index($slug)
     {
-        $Movie = Movie::where('slug', $slug)->first();
-        abort_if($Movie === null, 404);
-        $Movie->views = $Movie->views + 1 ;
-        $Movie->save();
+        $movie = Movie::where('slug', $slug)->first();
+        abort_if($movie === null, 404);
+        $this->increase_views($movie);
         return view('single')
-            ->with('movie', $Movie)
-            ->with('serverLinks', $Movie->serverLinks->first()->getserverLinksAsArray());
+            ->with('title', $this->get_title_of_page($movie))
+            ->with('movie', $movie)
+            ->with('serverLinks', $movie->serverLinks->first()->getserverLinksAsArray());
+    }
+
+    private function increase_views($movie)
+    {
+        $movie->views = $movie->views + 1 ;
+        $movie->save();
+    }
+
+    private function get_title_of_page($movie)
+    {
+        if ($movie->category_id === 1) {
+            return 'home';
+        }
+        if ($movie->category_id === 2) {
+            return 'arabic';
+        }
     }
 }

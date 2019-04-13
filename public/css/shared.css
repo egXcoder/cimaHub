@@ -85,6 +85,14 @@ body {
     font-size: 1.1rem;
 }
 
+.main-header__navbar ul li a.active {
+    color: #303030;
+    text-shadow: 0 0 5px white;
+    background: white;
+    padding: 3px 4px;
+    border-radius: 0px 4px 12px 4px;
+}
+
 .main-header__navbar ul li, .main-header__navbar li a {
     transition: all .7s;
 }
@@ -163,7 +171,7 @@ body {
     height: 2rem;
     margin: 0 auto;
     border-radius: 1.5rem;
-    background: white;
+    background: var(--third-color);
     padding-right: 1.8rem;
 }
 
@@ -187,7 +195,7 @@ body {
 }
 
 #search-bar span {
-    color: #918F8F;
+    color: white;
     position: absolute;
     top: 7px;
     right: 9px;
@@ -292,16 +300,13 @@ body {
 #movies-section {
     display: grid;
     width: 90%;
-    /*    border: 2px solid white;*/
     margin: 0 auto;
     position: relative;
-    padding-top: 20px;
+    padding-top: 30px;
     top: 6rem;
-    /*    grid-template-rows: 80px 80px;*/
     grid-auto-flow: row;
     grid-auto-rows: 18rem;
     grid-template-columns: repeat(4, 15rem);
-    /*    grid-auto-columns: 10rem;*/
     grid-gap: 2.5rem 3rem;
     justify-content: center;
 }

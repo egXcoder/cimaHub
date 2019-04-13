@@ -47,7 +47,6 @@
 
 @section('scripts')
     <script>
-        window.addEventListener('popstate',e=>{location.href='/'});
         $(document).ready(function(){
             var list = [];
             @foreach($serverLinks as $serverLink)

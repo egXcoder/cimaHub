@@ -75,7 +75,7 @@
     <script src="js/shared.js"></script>
     <script>
         $(window).scroll(function(){
-            if(window.scrollY>80){
+            if(window.scrollY>90){
                 $('.logo').removeClass('animated').removeClass('bounce');
             }else{
                 $('.logo').addClass('animated').addClass('bounce');

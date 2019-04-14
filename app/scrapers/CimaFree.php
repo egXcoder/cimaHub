@@ -1,23 +1,27 @@
 <?php
 
 namespace App\scrapers;
-use App\scrapers\Curl;
-use App\scrapers\ReformatArrays;
-use App\scrapers\InsertMovieToDatabase;
+
 use App\Movie;
 
-class CimaFree
-{
+class CimaFree {
     public $AllMoviespage;
     public $url;
 
-    public function __construct($url)
-    {
+    public function __construct($url) {
         $this->url = $url;
         $this->AllMoviespage = Curl::execute($url);
     }
 
-    public function run($category_id){
+    public static function automate() {
+        for ($i = 85;$i < 90;$i++) {
+            $x = new CimaFree('http://cimafree.com/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A-q6f86/page/' . $i . '/');
+            $x->run(1);
+        }
+        Cleaner::run();
+    }
+
+    public function run($category_id) {
         $movies = $this->buildMoviesArray();
         $servers = $this->buildServersArray($movies['links']);
         $formatted = ReformatArrays::reformat($movies, $servers, $category_id);
@@ -27,8 +31,7 @@ class CimaFree
         return "\nsuccess";
     }
 
-    public function buildMoviesArray()
-    {
+    public function buildMoviesArray() {
         $movies['links'] = $this->match('!class="details">\n<a class="link" href="(.*)" title!');
         $movies['image_url'] = $this->match('!data-src="(.*)" height!');
 
@@ -39,22 +42,19 @@ class CimaFree
         return $movies;
     }
 
-    public function match($regexPattern)
-    {
+    public function match($regexPattern) {
         preg_match_all($regexPattern, $this->AllMoviespage, $matches);
         return $matches[1];
     }
 
-    public function entityDecode($array)
-    {
+    public function entityDecode($array) {
         foreach ($array as $item) {
             $array[] = html_entity_decode($item);
         }
         return $array;
     }
 
-    public function buildServersArray($moviesLinks)
-    {
+    public function buildServersArray($moviesLinks) {
         $servers = [];
         for ($i = 0;$i < count($moviesLinks);$i++) {
             $link = $moviesLinks[$i];

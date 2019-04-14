@@ -16,6 +16,14 @@ class CimaClub{
     $this->AllMoviespage = Curl::execute($url);
     }
 
+    public static function automate(){
+        for($i=21;$i<26;$i++){
+            $x = new CimaClub('http://cimaclub.com/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A/page/'.$i.'/');
+            $x->run(1);
+        }
+        App\scrapers\Cleaner::run();
+    }
+
     public function run($category_id){
         $movies = $this->buildMoviesArray();
         $servers = $this->buildServersArray($movies['links']);

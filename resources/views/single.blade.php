@@ -7,7 +7,7 @@
 <div class="header">
     <div class="row">
         <div class="image-cover">
-            <img src="{{$movie->image_url}}" alt="{{$movie->name}}">
+            <img src="{{$movie->image_url}}"">
         </div>
         <div class="block">
             <div id="movie-name">

@@ -59,7 +59,7 @@ trait MoviesExtraOperations {
         $url = $this->initialize_imbd();
         $array = [];
         $obj = [];
-        if ($this->ratings == null || !preg_match('!^http!', $this->attributes['image_url'])) {
+        if ($this->ratings == null || !preg_match('!^http!', $this->getAttributes()['image_url'])) {
             try {
                 $obj = json_decode(file_get_contents($url), true);
             } catch (\Exception $ex) {
@@ -109,7 +109,7 @@ trait MoviesExtraOperations {
         $image_url = $RatingsAndImages['image'];
         if ($image_url != null && $image_url != 'N/A') {
             try {
-                unlink(public_path() . '/' . $movie->attributes['image_url']);
+                unlink(public_path() . '/' . $movie->getAttributes()['image_url']);
             } catch (\Exception $ex) {
             }
 
@@ -147,7 +147,7 @@ trait MoviesExtraOperations {
                 $duplications_id[] = $duplication->id;
                 $movie = Movie::find($duplication->id);
                 try {
-                    unlink(public_path() . '/' . $movie->attributes['image_url']);
+                    unlink(public_path() . '/' . $movie->getAttributes()['image_url']);
                 } catch (\Exception $ex) {
                 }
                 Movie::find($duplication->id)->serverLinks->delete();

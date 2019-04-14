@@ -278,8 +278,9 @@ body {
 #container {
     background: url('../main-body.jpg');
     background-size: cover;
-    min-height: 100%;
+    min-height: 100vh;
     position: relative;
+    padding-bottom: 4rem;
 }
 
 #container::after {
@@ -293,8 +294,8 @@ body {
     opacity: .8;
 }
 
-#main {
-    padding-bottom: 4rem;
+#main{
+    padding-bottom:4rem;
 }
 
 #movies-section {
@@ -449,8 +450,8 @@ body {
 .paginate-container {
     position: relative;
     z-index: 1;
-    padding-top: 7rem;
-    padding-bottom: 3rem;
+    padding-top: 11rem;
+    
 }
 
 .pagination {

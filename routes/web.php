@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Input;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', 'MoviesController@index')->name('home');
 Route::get('/افلام عربى', 'MoviesController@getArabicMovies')->name('movies.arabic');
 

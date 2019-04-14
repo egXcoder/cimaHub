@@ -1,3 +1,4 @@
+<i style="display:none; color:white;position:absolute;z-index:1;left:50%;" class="fas fa-spinner fa-5x fa-spin"></i>
 @foreach ($movies as $movie)
 
 <div class="movie" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-once="true">

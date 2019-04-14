@@ -11,7 +11,21 @@ class Cleaner {
         static::remove_movies_not_pointing_to_servers();
         static::remove_movies_with_no_servers();
         static::remove_unused_image_files();
+        static::remove_movies_with_no_images();
         static::fix_slug_movies();
+    }
+    public static function remove_movies_with_no_images(){
+        Movie::all()->each(function($movie){
+           $image_url = $movie->getAttributes()['image_url'];
+            if(preg_match('!^http://!',$image_url)){
+                try {
+                    file_get_contents($image_url);
+                }catch(\Exception $ex){
+                    $movie->serverLinks->delete();
+                }
+            }
+
+        });
     }
 
     public static function remove_unused_image_files() {

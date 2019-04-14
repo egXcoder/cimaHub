@@ -14,7 +14,7 @@ class CimaFlash {
     }
 
     public static function automate() {
-        for ($i = 65;$i < 70;$i++) {
+        for ($i = 70;$i < 75;$i++) {
             $x = new CimaFlash('http://www.cimaflash.co/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9-q3c53/page/' . $i . '/');
             $x->run(1);
         }

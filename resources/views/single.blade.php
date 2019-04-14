@@ -7,6 +7,9 @@
 <div class="header">
     <div class="row">
         <div class="image-cover">
+            @if($movie->ratings!=0 && $movie->ratings!==null)
+            <div style="right:30px;" class="rating-star"><i class="fas fa-star"></i></div>
+            <span style="right:39px;" class='rating-value'>{{$movie->ratings}}</span> @endif
             <img src="{{$movie->image_url}}"">
         </div>
         <div class="block">
@@ -16,6 +19,13 @@
             <div class="movie-description">
                 <p>{{$movie->description}}</p>
             </div>
+            @if ($movie->getYearFromName($movie->name)!==null)
+            <div class="year">
+                <p>سنة الاصدار : &nbsp</p>   
+                <i class="far fa-calendar-alt fa-2x"></i>
+                <p>{{$movie->getYearFromName($movie->name)}}</p>
+            </div>
+            @endif
             @if ($movie->quality!==null&&$movie->quality!=='0')
             <div class="quality">
                 <i class="fas fa-tv fa-5x"></i>

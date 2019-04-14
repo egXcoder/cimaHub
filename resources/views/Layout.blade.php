@@ -12,6 +12,8 @@
     @endif
     @if ($title=='arabic')
     <title>CimaHub - افلام عربى</title>
+    @else
+    <title>{{$title}}</title>
     @endif
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -44,7 +46,7 @@
             </nav>
         </div>
 
-        <div class="logo animated bounce">
+        <div class="logo">
             <a href="{{route('home')}}">
                 <p class="brand">cima<span>hub</span></p>
                 <img style="vertical-align:middle;" width=80px height=50px src="/brand.png">
@@ -58,7 +60,7 @@
     <nav class="mobile-nav">
         <ul class="mobile-nav__items">
             <li class="mobile-nav__item">
-                <a href="packages/index.html">أفلام عربي</a>
+                <a href="{{route('movies.arabic')}}">أفلام عربي</a>
             </li>
         </ul>
     </nav>
@@ -67,19 +69,24 @@
 
     <footer id="main-footer">
 
-        <p style="margin-left:auto;color:white;font-weight:bold;font-size:1.3rem;">
-            موقع cimahub لمشاهدة الافلام الاجنبى والعربى اونلاين @ 2019</p>
+        <p>
+            موقع cimahub لمشاهدة الافلام الاجنبى والعربى اونلاين @ 2019
+        </p>
 
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/shared.js"></script>
     <script>
-        $(window).scroll(function(){
-            if(window.scrollY>90){
-                $('.logo').removeClass('animated').removeClass('bounce');
-            }else{
-                $('.logo').addClass('animated').addClass('bounce');
-            }
+        $(document).ready(function(){
+        var logoElement = $('.logo');
+        animateLogo('tada');
+        $(window).scroll(function(){if(window.scrollY==0) animateLogo('tada');});
+        logoElement.hover(function(){animateLogo('pulse')},function(){});
+
+        function animateLogo($animationClass){
+            logoElement.addClass('animated').addClass($animationClass);
+            logoElement.on("animationend", function(){ $(this).removeClass('animated').removeClass($animationClass) });
+        }
         });
         
     </script>

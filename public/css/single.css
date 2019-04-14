@@ -31,10 +31,11 @@
     font-weight: bold;
     position: relative;
     text-align: center;
+    transform: translateY(1.3rem);
 }
 
-.header .block i {
-    transform:translateY(-5px)
+.header .block i.fa-tv {
+    transform: translateY(-5px);
 }
 
 .header .block .quality p {
@@ -45,6 +46,23 @@
     bottom: 0;
     color: white;
     text-transform: capitalize;
+}
+
+.header .block .year {
+    display: inline-flex;
+    color: var(--third-color);
+    margin-left: 10rem;
+}
+
+.header .block .year p {
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+    margin-right: .5rem;
+    font-size: 1.5rem;
+    margin-bottom: 1px;
+    margin-top: 5px;
+    display: inline-block;
 }
 
 @media(max-width:700px) {
@@ -75,22 +93,6 @@
     font-weight: bold;
     color: white;
 }
-
-/*
-.servers-section{
-    padding: 25px 0;
-    width: 25rem;
-    min-height: 20rem;
-    background: white;
-    margin: 80px 30px;
-    border: 5px solid black;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: center;
-}
-*/
 
 .servers-section {
     width: 20rem;

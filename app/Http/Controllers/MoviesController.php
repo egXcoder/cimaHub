@@ -20,12 +20,15 @@ class MoviesController extends Controller
         $query = DB::raw('id/(SELECT MAX(id) FROM movies)+views/(SELECT MAX(views) FROM movies)+ratings/(SELECT MAX(ratings) FROM movies) DESC');
         
         if($request->ajax()){
+            if(session('search')=='') return null;
+
             $movies = Movie::where('name','like','%'.session('search').'%')
                         ->orderByRaw($query)
                         ->paginate(36);
             return view('Ajax', ['movies' => $movies]);
 
-        }else{
+        }
+        else{
             $movies = Movie::Where('category_id', 1)
                         ->orderByRaw($query)
                         ->paginate(36);

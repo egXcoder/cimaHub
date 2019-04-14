@@ -65,6 +65,7 @@
         type: "GET",
         url : url,
         success:function(data){
+            if(data==='') window.location = "{{route('home')}}";
             $('#movies-section').html(data);
             $('.paginate-container').hide();
         },

@@ -14,7 +14,7 @@ class CimaFree {
     }
 
     public static function automate() {
-        for ($i = 85;$i < 90;$i++) {
+        for ($i = 95;$i < 100;$i++) {
             $x = new CimaFree('http://cimafree.com/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A-q6f86/page/' . $i . '/');
             $x->run(1);
         }

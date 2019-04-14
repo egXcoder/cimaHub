@@ -12,7 +12,7 @@ class ServerLinksForMoviesController extends Controller
         abort_if($movie === null, 404);
         $this->increase_views($movie);
         return view('single')
-            ->with('title', $this->get_title_of_page($movie))
+            ->with('title', $movie->name)
             ->with('movie', $movie)
             ->with('serverLinks', $movie->serverLinks->getserverLinksAsArray());
     }
@@ -23,13 +23,4 @@ class ServerLinksForMoviesController extends Controller
         $movie->save();
     }
 
-    private function get_title_of_page($movie)
-    {
-        if ($movie->category_id === 1) {
-            return 'home';
-        }
-        if ($movie->category_id === 2) {
-            return 'arabic';
-        }
-    }
 }

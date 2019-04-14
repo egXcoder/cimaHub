@@ -275,6 +275,15 @@ body {
     align-items: center;
 }
 
+#main-footer p {
+    margin-left: auto;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-top:.8rem;
+    margin-bottom:.8rem;
+}
+
 #container {
     background: url('../main-body.jpg');
     background-size: cover;
@@ -294,8 +303,8 @@ body {
     opacity: .8;
 }
 
-#main{
-    padding-bottom:4rem;
+#main {
+    padding-bottom: 4rem;
 }
 
 #movies-section {
@@ -304,6 +313,7 @@ body {
     margin: 0 auto;
     position: relative;
     padding-top: 30px;
+    padding-bottom: 6rem;
     top: 6rem;
     grid-auto-flow: row;
     grid-auto-rows: 18rem;
@@ -450,8 +460,7 @@ body {
 .paginate-container {
     position: relative;
     z-index: 1;
-    padding-top: 11rem;
-    
+    padding-top: 7rem;
 }
 
 .pagination {
@@ -518,7 +527,6 @@ body {
 
 #scrollToTopButton i {
     color: var(--primary-color)
-    /*    color:blue;*/
 }
 
 #scrollToTopButton.show {
@@ -561,12 +569,6 @@ body {
     #movies-section {
         grid-template-columns: repeat(2, 15rem)
     }
-    /*
-    .pagination li {
-    color: white;
-    padding: 10px 5px;
-    }
-*/
     .pagination li:nth-of-type(7), .pagination li:nth-of-type(6), .pagination li:nth-of-type(5) {
         display: none;
     }

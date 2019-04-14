@@ -14,7 +14,7 @@ class ServerLinksForMoviesController extends Controller
         return view('single')
             ->with('title', $this->get_title_of_page($movie))
             ->with('movie', $movie)
-            ->with('serverLinks', $movie->serverLinks->first()->getserverLinksAsArray());
+            ->with('serverLinks', $movie->serverLinks->getserverLinksAsArray());
     }
 
     private function increase_views($movie)

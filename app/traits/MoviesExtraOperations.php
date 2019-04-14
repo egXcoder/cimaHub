@@ -4,28 +4,23 @@ namespace App\traits;
 
 use App\Movie;
 
-trait MoviesExtraOperations
-{
-    public function getName()
-    {
+trait MoviesExtraOperations {
+    public function getName() {
         $only_english = $this->getNameWithoutArabic();
         $name_without_numbers = $this->getNameWithoutNumbers($only_english);
         $name_pure = $this->getNameWithoutQuality($name_without_numbers);
         return trim($name_pure);
     }
 
-    public function getNameWithoutArabic()
-    {
+    public function getNameWithoutArabic() {
         return trim(preg_replace('![^A-Za-z0-9\s-]!', '', $this->name));
     }
 
-    public function getNameWithoutNumbers($name)
-    {
+    public function getNameWithoutNumbers($name) {
         return trim(preg_replace('!([0-9])!', '', $name));
     }
 
-    public function getNameWithoutQuality($name)
-    {
+    public function getNameWithoutQuality($name) {
         $qualities = ['BluRay', 'DVDRip', 'HDCam', 'HDRip', 'HDTV', 'Web-dl'];
         foreach ($qualities as $quality) {
             $pattern = "!($quality)!i";
@@ -36,16 +31,14 @@ trait MoviesExtraOperations
         return $name;
     }
 
-    public function getYearFromName($name)
-    {
+    public function getYearFromName($name) {
         if (preg_match('!(19[0-9]{2}|20[0-2][0-9])!', $name, $matches)) {
             return $matches[1];
         }
         return null;
     }
 
-    public function getQualityFromName($name)
-    {
+    public function getQualityFromName($name) {
         $qualities = ['Web-dl', 'BluRay', 'DVDRip', 'HDTC', 'HDTS', 'HDCam', 'HDRip', 'HDTV', 'HD'];
         foreach ($qualities as $quality) {
             $pattern = "!($quality)!i";
@@ -56,15 +49,13 @@ trait MoviesExtraOperations
         return null;
     }
 
-    public function initialize_imbd()
-    {
+    public function initialize_imbd() {
         $movie_name = $this->getName();
         $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901';
         return $url;
     }
 
-    public function getRatingsAndImagesFromImbd()
-    {
+    public function getRatingsAndImagesFromImbd() {
         $url = $this->initialize_imbd();
         $array = [];
         $obj = [];
@@ -85,8 +76,7 @@ trait MoviesExtraOperations
         return $array;
     }
 
-    public static function populateRatingsAndQualityAndImbdImageToDatabase($category_id)
-    {
+    public static function populateRatingsAndQualityAndImbdImageToDatabase($category_id) {
         if ($category_id == 2) {
             return;
         }
@@ -97,8 +87,7 @@ trait MoviesExtraOperations
         });
     }
 
-    public static function populateRatingsToDatabase($movie)
-    {
+    public static function populateRatingsToDatabase($movie) {
         $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
         if (!array_key_exists('rating', $RatingsAndImages)) {
             return [];
@@ -112,8 +101,7 @@ trait MoviesExtraOperations
         }
     }
 
-    public static function populateImageUrlToDatabase($movie)
-    {
+    public static function populateImageUrlToDatabase($movie) {
         $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
         if (!array_key_exists('image', $RatingsAndImages)) {
             return;
@@ -129,8 +117,7 @@ trait MoviesExtraOperations
         }
     }
 
-    public static function populateQualityToDatabase($movie)
-    {
+    public static function populateQualityToDatabase($movie) {
         $name = $movie->name;
         $description = $movie->description;
         $quality = $movie->getQualityFromName($name);
@@ -144,8 +131,7 @@ trait MoviesExtraOperations
         }
     }
 
-    public static function removeDuplications($category_id)
-    {
+    public static function removeDuplications($category_id) {
         $duplications_id = [];
         if ($category_id == 2) {
             return;
@@ -164,7 +150,7 @@ trait MoviesExtraOperations
                     unlink(public_path() . '/' . $movie->attributes['image_url']);
                 } catch (\Exception $ex) {
                 }
-                Movie::find($duplication->id)->delete();
+                Movie::find($duplication->id)->serverLinks->delete();
             }
         });
     }

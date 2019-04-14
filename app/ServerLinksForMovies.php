@@ -44,4 +44,7 @@ class ServerLinksForMovies extends Model
     }   
     return $servers;
     }
+    public function movie(){
+        return $this->hasOne('App\Movie','server_links');
+    }
 }

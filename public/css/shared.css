@@ -86,9 +86,9 @@ body {
 }
 
 .main-header__navbar ul li a.active {
-    color: #303030;
+    color: white;
     text-shadow: 0 0 5px white;
-    background: white;
+    background: var(--third-color);
     padding: 3px 4px;
     border-radius: 0px 4px 12px 4px;
 }
@@ -411,7 +411,6 @@ body {
     position: absolute;
     z-index: 1;
 }
-
 
 .overdrop-bottom {
     position: absolute;

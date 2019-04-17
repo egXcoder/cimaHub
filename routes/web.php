@@ -1,6 +1,4 @@
 <?php
-use App\Movie;
-use Illuminate\Support\Facades\Input;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +14,3 @@ Route::get('/', 'MoviesController@index')->name('home');
 Route::get('/افلام عربى', 'MoviesController@getArabicMovies')->name('movies.arabic');
 
 Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.serverLinks');
-

@@ -14,7 +14,7 @@
     <meta name="twitter:title" content="موقع cima4u">
     <meta name="twitter:description" content="موقع cimahub لمشاهدة الافلام الاجنبى والعربى بدون اعلانات">
     <meta name="twitter:image" content="{{asset('')."brand.png"}}">
-
+    <meta name="theme-color" content="#321c4c" />
     @if ($title=='home')
     <title>CimaHub - الرئيسية</title>
     @endif
@@ -97,6 +97,16 @@
         }
         });
         
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138512204-1"></script>
+    <script>
+       window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-138512204-1');
+    
     </script>
     @yield('scripts')
 

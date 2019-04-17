@@ -10,7 +10,7 @@ class Movie extends Model {
     protected $guarded = [];
 
     public function getSlug() {
-        if ($this->category->id == 2) {
+        if ($this->category_id == 2) {
             return str_slug($this->name);
         }
         return str_slug($this->getNameWithoutArabic());

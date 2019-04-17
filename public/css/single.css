@@ -54,6 +54,15 @@
     margin-left: 10rem;
 }
 
+@media(max-width:500px) {
+    .header .block .year {
+        margin: 0px 0px 1rem 0px;
+        display: block;
+        text-align: center;
+
+    }
+}
+
 .header .block .year p {
     font-weight: bold;
     color: white;

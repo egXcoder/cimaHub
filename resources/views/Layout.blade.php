@@ -7,6 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta property="og:title" content="موقع cima4u">
+    <meta property="og:description" content="موقع cimahub لمشاهدة الافلام الاجنبى والعربى بدون اعلانات">
+    <meta property="og:image" content="{{asset('')."brand.png"}}">
+    <meta property="og:url" content="{{asset('')}}">
+    <meta name="twitter:title" content="موقع cima4u">
+    <meta name="twitter:description" content="موقع cimahub لمشاهدة الافلام الاجنبى والعربى بدون اعلانات">
+    <meta name="twitter:image" content="{{asset('')."brand.png"}}">
+
     @if ($title=='home')
     <title>CimaHub - الرئيسية</title>
     @endif
@@ -41,7 +49,6 @@
                 <ul>
                     <li><a @if($title==='home')class="active" @endif href="{{route('home')}}">الرئيسية</a></li>
                     <li><a @if($title==='arabic')class="active" @endif href="{{route('movies.arabic')}}">أفلام عربي</a></li>
-
                 </ul>
             </nav>
         </div>
@@ -60,6 +67,7 @@
     <nav class="mobile-nav">
         <ul class="mobile-nav__items">
             <li class="mobile-nav__item">
+                <a href="{{route('home')}}">الرئيسية</a>
                 <a href="{{route('movies.arabic')}}">أفلام عربي</a>
             </li>
         </ul>

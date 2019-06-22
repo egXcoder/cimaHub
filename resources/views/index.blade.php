@@ -18,18 +18,16 @@
                 @endif @if($movie->ratings!=0 && $movie->ratings!==null)
                 <div class="rating-star"><i class="fas fa-star"></i></div>
                 <span class='rating-value'>{{$movie->ratings}}</span> @endif
-                <a href="{{route('movie.serverLinks',['slug'=>$movie->getSlug()])}}"><img src='{{$movie->image_url}}'></a>
+                <a href="{{route('movie.single',['slug'=>$movie->getSlug()])}}"><img src='{{$movie->image_url}}'></a>
                 <div class="movie-view-count__container">
                     <p class="view-count"> &nbsp <i class="fas fa-eye"></i> </p>
                 </div>
 
                 <div class="movie-title__container">
-                    <a href="{{route('movie.serverLinks',['slug'=>$movie->getSlug()])}}">
+                    <a href="{{route('movie.single',['slug'=>$movie->getSlug()])}}">
                         <h2 class='movie-title'>{{$movie->name}}</h2>
                     </a>
                 </div>
-
-
 
                 <div class="overdrop-bottom">
 
@@ -46,8 +44,6 @@
         </div>
 
     </div>
-
-
 </main>
 @endsection
  
@@ -55,7 +51,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();
-
 </script>
 <script>
     function ajaxLoad(url){
@@ -74,6 +69,5 @@
         }
     });
 }
-
 </script>
 @endsection

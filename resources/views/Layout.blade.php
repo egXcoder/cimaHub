@@ -6,12 +6,12 @@
     <meta name="description" content="أفضل موقع عربي لمشاهدة الأفلام و المسلسلات و الأنمي بسهولة و سرعة">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <meta property="og:title" content="موقع cima4u">
+    <link rel="icon" href="/brand.png" type="image/x-icon">
+    <meta property="og:title" content="موقع cimahub">
     <meta property="og:description" content="موقع cimahub لمشاهدة الافلام الاجنبى والعربى بدون اعلانات">
     <meta property="og:image" content="{{asset('')."brand.png"}}">
     <meta property="og:url" content="{{asset('')}}">
-    <meta name="twitter:title" content="موقع cima4u">
+    <meta name="twitter:title" content="موقع cimahub">
     <meta name="twitter:description" content="موقع cimahub لمشاهدة الافلام الاجنبى والعربى بدون اعلانات">
     <meta name="twitter:image" content="{{asset('')."brand.png"}}">
     <meta name="theme-color" content="#321c4c" />
@@ -23,12 +23,8 @@
     @else
     <title>{{$title}}</title>
     @endif
+    <link rel="stylesheet" href="css/app.css">    
     
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black" rel="stylesheet">
-    <link rel="stylesheet" href="css/shared.css"> 
     @yield('extraStylesheets')
 
 </head>
@@ -48,7 +44,6 @@
             <nav class="main-header__navbar">
                 <ul>
                     <li><a @if($title==='home')class="active" @endif href="{{route('home')}}">الرئيسية</a></li>
-                    <li><a @if($title==='arabic')class="active" @endif href="{{route('movies.arabic')}}">أفلام عربي</a></li>
                 </ul>
             </nav>
         </div>
@@ -68,7 +63,6 @@
         <ul class="mobile-nav__items">
             <li class="mobile-nav__item">
                 <a href="{{route('home')}}">الرئيسية</a>
-                <a href="{{route('movies.arabic')}}">أفلام عربي</a>
             </li>
         </ul>
     </nav>
@@ -104,9 +98,7 @@
        window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'UA-138512204-1');
-    
     </script>
     @yield('scripts')
 

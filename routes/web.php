@@ -11,6 +11,5 @@
 |
 */
 Route::get('/', 'MoviesController@index')->name('home');
-Route::get('/افلام عربى', 'MoviesController@getArabicMovies')->name('movies.arabic');
 
-Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.serverLinks');
+Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.single');

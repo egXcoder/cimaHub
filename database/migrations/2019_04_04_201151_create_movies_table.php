@@ -28,7 +28,7 @@ class CreateMoviesTable extends Migration
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
-                ->onDelete('No Action')
+                ->onDelete('Cascade')
                 ->onUpdate('No Action');
 
             $table->foreign('server_links')

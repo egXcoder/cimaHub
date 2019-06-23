@@ -10,21 +10,25 @@ class Movie extends Model {
     protected $guarded = [];
 
     public function getSlug() {
-        if ($this->category_id == 2) {
-            return str_slug($this->name);
-        }
         return str_slug($this->getNameWithoutArabic());
     }
-
-    public function serverLinks() {
-        return $this->belongsTo('App\ServerLinksForMovies', 'server_links');
-    }
-
+    
     public function getImageUrlAttribute($url) {
         return preg_match('!^http!', $url) ? $url : asset('') . $url;
     }
 
     public function category() {
         return $this->belongsto('App\Category');
+    }
+
+    public function serverLinks() {
+        return $this->hasOne('App\ServerLinksForMovies');
+    }
+    
+    public function actor(){
+        return $this->belongsToMany('App\Actor');
+    }
+    public function genre(){
+        return $this->belongsToMany('App\Genre');
     }
 }

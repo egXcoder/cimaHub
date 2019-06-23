@@ -15,6 +15,7 @@ class ServerLinksForMovies extends Migration
     {
         Schema::create('server_links_movies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('movie_id')->unsigned();
             $table->string('server_1')->nullable();
             $table->string('server_2')->nullable();
             $table->string('server_3')->nullable();
@@ -25,6 +26,12 @@ class ServerLinksForMovies extends Migration
             $table->string('server_8')->nullable();
             $table->string('server_9')->nullable();
             $table->string('server_10')->nullable();
+
+            $table->foreign('movie_id')
+                    ->references('id')
+                    ->on('movies')
+                    ->onDelete('Cascade')
+                    ->onUpdate('No Action');
         });
     }
 

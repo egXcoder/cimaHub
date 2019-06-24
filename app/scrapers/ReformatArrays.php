@@ -9,7 +9,7 @@ class ReformatArrays
         $image_data = Curl::execute($image_url);
         $file = fopen($movie_path, 'w');
         fwrite($file, $image_data);
-        echo '.';
+        echo ".";
         fclose($file);
     }
 

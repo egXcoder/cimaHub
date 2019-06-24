@@ -1,6 +1,6 @@
 <?php
 
-namespace App\scrapers;
+namespace App\Scrapers;
 
 use App\Movie;
 
@@ -8,9 +8,9 @@ class CimaFree {
     public $AllMoviespage;
     public $url;
 
-    public function __construct($url) {
-        $this->url = $url;
-        $this->AllMoviespage = Curl::execute($url);
+    public function __construct($page_number) {
+        $this->url = 'http://cimafree.com/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A-q6f86/page/' . $page_number . '/';
+        $this->AllMoviespage = Curl::execute($this->url);
     }
 
     public static function automate() {
@@ -23,11 +23,16 @@ class CimaFree {
 
     public function run($category_id) {
         $movies = $this->buildMoviesArray();
+        echo "Movies Array Built, Now Building Server Array ...\n";
         $servers = $this->buildServersArray($movies['links']);
+        echo "\nServers Array Built, Now Reformatting Array ...\n";
         $formatted = ReformatArrays::reformat($movies, $servers, $category_id);
+        echo "\nFormatted Array Built, Now Inserting Movies and its servers to database\n";
         InsertMovieToDatabase::insert($formatted);
-        Movie::populateRatingsAndQualityAndImbdImageToDatabase($category_id);
-        Movie::removeDuplications($category_id);
+        echo "\nInserted Successfully, Now Populating Ratings and Qualities And Imdb Images\n";
+        Movie::populateExtraInfoToDatabase($category_id);
+        echo "\nRating and qualities and images updated Successfully...";
+        // Movie::removeDuplications($category_id);
         return "\nsuccess";
     }
 
@@ -37,6 +42,7 @@ class CimaFree {
 
         $array = $this->match('!<figcaption>\n(.*)<\/figcaption>!');
         $movies['name'] = $this->entityDecode($array);
+
         $array = $this->match('!<span>القصة : <\/span>\n(.*)<\/p>!');
         $movies['description'] = $this->entityDecode($array);
         return $movies;
@@ -77,6 +83,7 @@ class CimaFree {
                 }
             }
             $servers[] = $movie_servers;
+            echo ".";
         }
         return $servers;
     }

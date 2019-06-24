@@ -9,10 +9,15 @@
 <div class="header">
     <div class="row">
         <div class="image-cover">
+            
+            @if($movie->quality!=='0' && $movie->quality!==null)
+            <div class="quality-label">{{$movie->quality}}</div>
+            @endif
+
             @if($movie->ratings!=0 && $movie->ratings!==null)
-            <div class="quality-label">Web-Dl</div>
             <div style="right:30px;" class="rating-star"><i class="fas fa-star"></i></div>
-            <span style="right:39px;" class='rating-value'>{{$movie->ratings}}</span> @endif
+            <span style="right:39px;" class='rating-value'>{{$movie->ratings}}</span> 
+            @endif
             <img src="{{$movie->image_url}}"">
         </div>
         <div class=" block">
@@ -28,37 +33,28 @@
                 <p>{{$movie->getYearFromName($movie->name)}}</p>
             </div>
             @endif
+            @if($movie->time_length!==null)
             <div class="time">
                 <p>المدة :</p>
-                <p>181</p>
+                <p>{{$movie->time_length}}</p>
                 <p>دقيقة</p>
             </div>
+            @endif
+            @if($movie->actor->isNotEmpty())
             <div class="actors">
                 <p>الممثلين :</p>
-                <div class="carousel_actors" style="width:800px">
-                    <div class="carousel_item">
-                        <img class="actor-img" src="https://www.cheatsheet.com/wp-content/uploads/2019/06/Robert-Downey-Jr.-4.jpg" alt="Actor Name is here">
-                        <div class="card-body">
-                            <p class="actor_name">Robert Downey Jr</p>
+                <div class="carousel_actors" style="width:700px;margin-top:1rem;">
+                    @foreach ($movie->actor as $actor)
+                        <div class="carousel_item">
+                            <img class="actor-img" src="{{$actor->image_url}}" alt="{{$actor->name}}">
+                            <div class="card-body">
+                                <p class="actor_name">{{$actor->name}}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="carousel_item">
-                        <img class="actor-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Chris_Evans_SDCC_2014.jpg/220px-Chris_Evans_SDCC_2014.jpg" alt="Actor Name is here">
-                        <div class="card-body">
-                            <p class="actor_name">Chris Evans</p>
-                        </div>
-                    </div>
-
-                    <div class="carousel_item">
-                        <img class="actor-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Mark_Ruffalo_in_2017_by_Gage_Skidmore.jpg/220px-Mark_Ruffalo_in_2017_by_Gage_Skidmore.jpg" alt="Actor Name is here">
-                        <div class="card-body">
-                            <p class="actor_name">Mark Ruffalo</p>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
-            
             </div>
+            @endif
 
         </div>
     </div>
@@ -103,6 +99,7 @@
         slidesToScroll: 1,
         rtl: true,
         dots: true,
+        centerMode: true,
     });    
 </script>
 @endsection

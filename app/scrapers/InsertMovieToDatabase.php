@@ -11,23 +11,25 @@ class InsertMovieToDatabase
     {
         foreach ($formatted as $movie) {
             try {
-                Movie::create([
-                    'name' => $movie['name'],
-                    'description' => $movie['description'],
-                    'slug' => static::getSlug($movie['name']),
-                    'image_url' => $movie['image_url'],
-                    'category_id' => $movie['category_id'],
-                    'server_links' => static::insertServers($movie)
-                ]);
+                $movie_id = Movie::create([
+                                'name' => $movie['name'],
+                                'description' => $movie['description'],
+                                'slug' => static::getSlug($movie['name']),
+                                'image_url' => $movie['image_url'],
+                                'category_id' => $movie['category_id']
+                            ])->id;
+                static::insertServers($movie,$movie_id);
+                echo ".";
             } catch (\Exception $ex) {
                 echo $ex->getMessage() . "\n";
             }
         }
     }
 
-    public static function insertServers($movie)
+    public static function insertServers($movie,$movie_id)
     {
         return ServerLinksForMovies::create([
+            'movie_id' => $movie_id,
             'server_1' => TestServer::test($movie['servers'][0]),
             'server_2' => TestServer::test($movie['servers'][1]),
             'server_3' => TestServer::test($movie['servers'][2]),
@@ -38,7 +40,7 @@ class InsertMovieToDatabase
             'server_8' => TestServer::test($movie['servers'][7]),
             'server_9' => TestServer::test($movie['servers'][8]),
             'server_10' => TestServer::test($movie['servers'][9])
-        ])->id;
+        ]);
     }
 
     public static function getSlug($name)

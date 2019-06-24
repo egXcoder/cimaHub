@@ -3,6 +3,9 @@
 namespace App\traits;
 
 use App\Movie;
+use \Statickidz\GoogleTranslate;
+use App\Actor;
+use App\Scrapers\Curl;
 
 trait MoviesExtraOperations {
     public function getName() {
@@ -51,7 +54,7 @@ trait MoviesExtraOperations {
 
     public function initialize_imbd() {
         $movie_name = $this->getName();
-        $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901';
+        $url = 'http://www.omdbapi.com/?t=' . urlencode($movie_name) . '&apikey=49f28901&plot=full';
         return $url;
     }
 
@@ -59,40 +62,40 @@ trait MoviesExtraOperations {
         $url = $this->initialize_imbd();
         $array = [];
         $obj = [];
-        if ($this->ratings == null || !preg_match('!^http!', $this->getAttributes()['image_url'])) {
-            try {
-                $obj = json_decode(file_get_contents($url), true);
-            } catch (\Exception $ex) {
-                return $array;
-            }
-
-            if (array_key_exists('imdbRating', $obj)) {
-                $array['rating'] = $obj['imdbRating'];
-            }
-            if (array_key_exists('Poster', $obj)) {
-                $array['image'] = $obj['Poster'];
-            }
+        try {
+            $obj = json_decode(file_get_contents($url), true);
+        } catch (\Exception $ex) {
+            return $array;
         }
+        
+        if(array_key_exists('imdbRating', $obj)) $array['rating'] = $obj['imdbRating'];
+        if(array_key_exists('Poster', $obj)) $array['image'] = $obj['Poster'];
+        if(array_key_exists('Runtime', $obj)) $array['time_length'] = $obj['Runtime'];
+        if(array_key_exists('Genre', $obj)) $array['genre'] = $obj['Genre'];
+        if(array_key_exists('Actors', $obj)) $array['actors'] = $obj['Actors'];
+        if(array_key_exists('Plot', $obj)) $array['description'] = $obj['Plot'];
+    
         return $array;
     }
 
-    public static function populateRatingsAndQualityAndImbdImageToDatabase($category_id) {
-        if ($category_id == 2) {
-            return;
-        }
-        Movie::latest('id')->Where('category_id', $category_id)->take(200)->get()->each(function ($movie) {
-            static::populateRatingsToDatabase($movie);
-            static::populateQualityToDatabase($movie);
-            static::populateImageUrlToDatabase($movie);
+    public static function populateExtraInfoToDatabase($category_id) {
+        
+        Movie::latest('id')->Where('category_id', $category_id)->take(100)->get()->each(function ($movie) {
+            $imdb_json_generated_array = $movie->getRatingsAndImagesFromImbd();            
+            
+            static::populateActors($movie,$imdb_json_generated_array);
+            static::populate_time_length($movie,$imdb_json_generated_array);
+            static::populateRatings($movie,$imdb_json_generated_array);
+            static::populateDescription($movie,$imdb_json_generated_array);
+            static::populateImageUrl($movie,$imdb_json_generated_array);
+            static::populateQuality($movie);
+            echo ".";
         });
     }
 
-    public static function populateRatingsToDatabase($movie) {
-        $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
-        if (!array_key_exists('rating', $RatingsAndImages)) {
-            return [];
-        }
-        $ratings = $RatingsAndImages['rating'];
+    public static function populateRatings($movie,$imdb_json_generated_array) {
+        if (!array_key_exists('rating', $imdb_json_generated_array)) return [];
+        $ratings = $imdb_json_generated_array['rating'];
         if ($ratings != null && $ratings != 'N/A') {
             $movie->update(['ratings' => $ratings]);
         }
@@ -101,12 +104,39 @@ trait MoviesExtraOperations {
         }
     }
 
-    public static function populateImageUrlToDatabase($movie) {
-        $RatingsAndImages = $movie->getRatingsAndImagesFromImbd();
-        if (!array_key_exists('image', $RatingsAndImages)) {
-            return;
+    public static function populateDescription($movie,$imdb_json_generated_array){
+        if (!array_key_exists('description', $imdb_json_generated_array)) return [];
+        $description = $imdb_json_generated_array['description'];
+
+        if ($description != null && $description != 'N/A') {
+            $source = 'en';
+            $target = 'ar';
+            $trans = new GoogleTranslate();
+            $result = $trans->translate($source, $target, $description);
+            $movie->update(['description' => $result]);
         }
-        $image_url = $RatingsAndImages['image'];
+    }
+
+    public static function populateActors($movie,$imdb_json_generated_array){
+        if (!array_key_exists('actors', $imdb_json_generated_array)) return [];
+        $actors = $imdb_json_generated_array['actors'];
+        $actors_array = explode(", ",$actors);
+        foreach($actors_array as $actor){
+            if($actors==='N/A') continue;
+            if(Actor::where('name','like','%'.$actor.'%')->get()->isEmpty()){
+                $actorPage = Curl::execute('https://www.themoviedb.org/search/person?query='. urlencode($actor));
+                preg_match('!(https:\/\/image.tmdb.org\/t\/p\/w180.*) 2x!', $actorPage, $matches);
+                Actor::create(['name'=>$actor,'image_url'=>$matches[1]??null]);
+            }
+            $id = Actor::where('name','like','%'.$actor.'%')->first();
+            $movie->actor()->attach($id);
+        }
+    }
+
+    public static function populateImageUrl($movie,$imdb_json_generated_array) {
+        if (!array_key_exists('image', $imdb_json_generated_array)) return;
+        $image_url = $imdb_json_generated_array['image'];
+
         if ($image_url != null && $image_url != 'N/A') {
             try {
                 unlink(public_path() . '/' . $movie->getAttributes()['image_url']);
@@ -117,7 +147,16 @@ trait MoviesExtraOperations {
         }
     }
 
-    public static function populateQualityToDatabase($movie) {
+    public static function populate_time_length($movie,$imdb_json_generated_array){
+        if (!array_key_exists('time_length', $imdb_json_generated_array)) return;
+        $time_length = $imdb_json_generated_array["time_length"];
+        if ($time_length != null && $time_length != 'N/A') {
+            $time_length = trim(preg_replace('![a-z]+!','',$time_length));
+            $movie->update(['time_length' => $time_length]);
+        }
+    }
+
+    public static function populateQuality($movie) {
         $name = $movie->name;
         $description = $movie->description;
         $quality = $movie->getQualityFromName($name);
@@ -133,9 +172,7 @@ trait MoviesExtraOperations {
 
     public static function removeDuplications($category_id) {
         $duplications_id = [];
-        if ($category_id == 2) {
-            return;
-        }
+
         Movie::latest('id')->Where('category_id', $category_id)->take(200)->get()->each(function ($movie) use (&$duplications_id) {
             $duplication = Movie::where('name', 'like', '%' . $movie->getName() . '%')
                 ->where('id', '!=', $movie->id)
@@ -148,8 +185,7 @@ trait MoviesExtraOperations {
                 $movie = Movie::find($duplication->id);
                 try {
                     unlink(public_path() . '/' . $movie->getAttributes()['image_url']);
-                } catch (\Exception $ex) {
-                }
+                } catch (\Exception $ex) {}
                 Movie::find($duplication->id)->serverLinks->delete();
             }
         });

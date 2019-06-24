@@ -6,19 +6,12 @@ class TestServer
 {
     public static function test($server_url)
     {
-        if ($server_url === null) {
-            return null;
-        }
+        if ($server_url === null) return null;
         $server_url = static::fix_url($server_url);
-        if (!static::isDomainUp($server_url)) {
-            return null;
-        }
-        if (!static::test_if_server_allow_sandbox($server_url)) {
-            return null;
-        }
-        if (!static::test_if_server_working($server_url)) {
-            return null;
-        }
+
+        if (!static::isDomainUp($server_url)) return null;
+        if (!static::test_if_server_allow_sandbox($server_url)) return null;
+        if (!static::test_if_server_working($server_url)) return null;
         return $server_url;
     }
 
@@ -42,7 +35,7 @@ class TestServer
 
     public static function test_if_server_allow_sandbox($server_url)
     {
-        $servers_to_be_removed = ['thevid.tv', 'streamango', 'openload.co'];
+        $servers_to_be_removed = ['thevid.tv', 'streamango', 'openload.co','upvid.co','verystream.com'];
         foreach ($servers_to_be_removed as $server) {
             if (preg_match('!.' . $server . '!i', $server_url, $matches)) {
                 return false;

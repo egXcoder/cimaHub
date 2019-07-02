@@ -3,15 +3,15 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Movie;
-class remove_movies_duplications extends Command
+use App\Scrapers\Cleaner;
+class MoviesCleaner extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'remove_movies_duplications';
+    protected $signature = 'movies:clean';
 
     /**
      * Create a new command instance.
@@ -30,6 +30,6 @@ class remove_movies_duplications extends Command
      */
     public function handle()
     {
-        Movie::removeDuplications(1);
+        Cleaner::run();
     }
 }

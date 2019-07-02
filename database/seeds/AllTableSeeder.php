@@ -13,8 +13,8 @@ class AllTableSeeder extends Seeder
     {
         factory('App\Category')->create(['name' => 'افلام اجنبى']);
         factory('App\Category')->create(['name' => 'مسلسلات اجنبى']);
-        factory('App\Category')->create(['name' => 'مسلسلات انمى']);
-        factory('App\Category')->create(['name' => 'افلام انمى']);
+        factory('App\Category')->create(['name' => 'انمى']);
+        factory('App\Category')->create(['name' => 'هندى']);
     }
 
 

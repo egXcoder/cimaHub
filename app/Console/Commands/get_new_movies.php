@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Scrapers\CimaFree;
+use App\Scrapers\CimaFlash;
 
 class get_new_movies extends Command
 {
@@ -12,7 +13,7 @@ class get_new_movies extends Command
      *
      * @var string
      */
-    protected $signature = 'get_new_movies {sitename=cimafree}';
+    protected $signature = 'movies:fetch {sitename=cimafree} {page_number=1}';
 
     /**
      * Create a new command instance.
@@ -32,8 +33,12 @@ class get_new_movies extends Command
     public function handle()
     {
         if($this->argument('sitename')=='cimafree'){
-            $cimafree = new CimaFree(1);
+            $cimafree = new CimaFree($this->argument('page_number'));
             $cimafree->run(1);
+        }
+        if($this->argument('sitename')=='cimaflash'){
+            $cimaflash = new CimaFlash($this->argument('page_number'));
+            $cimaflash->run(1);
         }
     }
 }

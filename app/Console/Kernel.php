@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\get_new_movies',
+        'App\Console\Commands\MoviesCleaner',
     ];
 
     /**
@@ -24,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        
+        $schedule->command('movies:fetch cimaflash'.rand(1,100))->hourly();
     }
 
     /**

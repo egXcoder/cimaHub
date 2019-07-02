@@ -24,6 +24,13 @@ class ServerLinksForMovies extends Model
         if($this->server_10 != null) $servers[] = $this->server_10;
         return $servers;
     }
+    public function setServerLinks($servers){
+        $counter = 1;
+        foreach($servers as $server){
+            $this->update(['server_'.$counter => $server]);
+            $counter++;
+        }
+    }
 
     public function movie(){
         return $this->belongsTo('App\Movie');

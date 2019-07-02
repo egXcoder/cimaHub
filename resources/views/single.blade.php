@@ -40,10 +40,18 @@
                 <p>دقيقة</p>
             </div>
             @endif
+            @if($movie->genre->isNotEmpty())
+            <div class="genre">
+                <p>النوع :</p>
+                @foreach ($movie->genre as $genre)
+                    <p>{{$genre->name}}  <p>
+                @endforeach
+            </div>
+            @endif
             @if($movie->actor->isNotEmpty())
             <div class="actors">
                 <p>الممثلين :</p>
-                <div class="carousel_actors" style="width:700px;margin-top:1rem;">
+                <div class="carousel_actors" style="margin-top:1rem;">
                     @foreach ($movie->actor as $actor)
                         <div class="carousel_item">
                             <img class="actor-img" src="{{$actor->image_url}}" alt="{{$actor->name}}">
@@ -60,16 +68,11 @@
     </div>
 </div>
 
-
-
-
 <div class="servers-movie-container">
     <div class="servers-section">
-
-        @for ($i = 1; $i
-        < count($serverLinks)+1; $i++) <div id="{{$i}}" class="server"><a>سيرفر {{$i}} </a></div>
-    @endfor
-
+        @for ($i = 1; $i< count($serverLinks)+1; $i++) 
+        <div id="{{$i}}" class="server"><a>سيرفر {{$i}} </a></div>
+        @endfor
 </div>
 
 <div class="video-container">
@@ -95,11 +98,28 @@
         });
 
     $('.carousel_actors').slick({
-        slidesToShow: 2,
+        slidesToShow: 3,
+        infinite: true,
         slidesToScroll: 1,
         rtl: true,
-        dots: true,
-        centerMode: true,
+        responsive: [
+        {
+            breakpoint: 900,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                dots: true
+            }
+        },
+        {
+            breakpoint: 500,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true
+            }
+        }
+        ]
     });    
 </script>
 @endsection

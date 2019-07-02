@@ -4,27 +4,53 @@ namespace App\scrapers;
 
 use App\Movie;
 use App\ServerLinksForMovies;
+use App\Actor;
 
 class Cleaner {
     public static function run() {
+        echo "Removing Movies Duplications ...\n";
+        Movie::removeDuplications(1);
+        // echo "Removing non working Servers ...\n";
+        // static::remove_non_working_servers();
+        echo "Removing Actors with no image ...\n";
+        static::remove_actors_without_images();
+        echo "Removing Servers not pointing to movies ...\n";
         static::remove_servers_not_pointing_to_movies();
+        echo "Removing Movies not pointing to servers  ...\n";
         static::remove_movies_not_pointing_to_servers();
+        echo "Removing Movies with no server  ...\n";
         static::remove_movies_with_no_servers();
+        echo "Removing unused image files  ...\n";
         static::remove_unused_image_files();
+        echo "Removing movies with no images  ...\n";
         static::remove_movies_with_no_images();
-        static::fix_slug_movies();
+    }
+    // public static function remove_non_working_servers(){
+    //     //It takes very long Time
+    //     ServerLinksForMovies::latest('id')->take(60)->get()->each(function($serverLinks){
+    //         $servers = $serverLinks->getserverLinksAsArray();
+    //         $new_servers_array = [];
+    //         foreach($servers as $server){
+    //             $new_servers_array[] = TestServer::test($server);    
+    //         }
+    //         $serverLinks->setServerLinks($new_servers_array);
+    //         echo ".";
+    //     });
+    // }
+    public static function remove_actors_without_images(){
+        Actor::all()->each(function($actor){
+            if($actor->image_url===null || $actor->image_url==='') $actor->delete();
+        });
     }
     public static function remove_movies_with_no_images(){
         Movie::all()->each(function($movie){
            $image_url = $movie->getAttributes()['image_url'];
-            if(preg_match('!^http://!',$image_url)){
+            if(preg_match('!^http://!',$image_url)||preg_match('!^https://!',$image_url)){
                 try {
                     file_get_contents($image_url);
-                }catch(\Exception $ex){
-                    $movie->serverLinks->delete();
-                }
+                }catch(\Exception $ex){$movie->delete();}
             }
-
+            echo ".";
         });
     }
 
@@ -32,11 +58,8 @@ class Cleaner {
         $files = scandir(public_path('uploads/'));
         for ($i = 2;$i < count($files);$i++) {
             if (Movie::where('image_url', 'uploads/' . $files[$i])->get()->isEmpty()) {
-                try {
-                    unlink(public_path('uploads/') . $files[$i]);
-                } catch (\Exception $ex) {
-                    echo $ex->getMessage();
-                }
+                try { unlink(public_path('uploads/') . $files[$i]);} 
+                catch (\Exception $ex) { echo $ex->getMessage();}
             }
         }
     }
@@ -56,25 +79,12 @@ class Cleaner {
     }
     public static function remove_movies_not_pointing_to_servers(){
         Movie::all()->each(function($movie){
-            if($movie->serverLinks===null){
-                $movie->delete();
-            } 
+            if($movie->serverLinks===null) $movie->delete();
         });
     }
     public static function remove_servers_not_pointing_to_movies(){
         ServerLinksForMovies::all()->each(function($server){
-            if($server->movie===null){
-                $server->delete();
-            } 
-        });
-    }
-
-    public static function fix_slug_movies() {
-        Movie::where('category_id', '1')->each(function ($movie) {
-            $movie->update(['slug' => str_slug($movie->getNameWithoutArabic())]);
-        });
-        Movie::where('category_id', '2')->each(function ($movie) {
-            $movie->update(['slug' => str_slug($movie->name)]);
+            if($server->movie===null) $server->delete();
         });
     }
 }

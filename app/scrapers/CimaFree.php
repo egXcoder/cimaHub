@@ -25,14 +25,14 @@ class CimaFree {
         $movies = $this->buildMoviesArray();
         echo "Movies Array Built, Now Building Server Array ...\n";
         $servers = $this->buildServersArray($movies['links']);
-        echo "\nServers Array Built, Now Reformatting Array ...\n";
+        echo "\nServers Array Built, Now Reformatting Array And Downloading Images ...\n";
         $formatted = ReformatArrays::reformat($movies, $servers, $category_id);
-        echo "\nFormatted Array Built, Now Inserting Movies and its servers to database\n";
+        echo "\nFormatted Array Built, Now Inserting Movies and its servers to database After Testing Servers\n";
         InsertMovieToDatabase::insert($formatted);
         echo "\nInserted Successfully, Now Populating Ratings and Qualities And Imdb Images\n";
         Movie::populateExtraInfoToDatabase($category_id);
-        echo "\nRating and qualities and images updated Successfully...";
-        // Movie::removeDuplications($category_id);
+        echo "\nExtraInfo updated Successfully...\n";
+        Cleaner::remove_actors_without_images();
         return "\nsuccess";
     }
 
@@ -83,7 +83,7 @@ class CimaFree {
                 }
             }
             $servers[] = $movie_servers;
-            echo ".";
+            echo '.';
         }
         return $servers;
     }

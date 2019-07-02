@@ -15,6 +15,7 @@
 .header .image-cover {
     overflow:hidden;
     position: relative;
+    display:inline-block;
 }
 
 .header .image-cover img {
@@ -57,33 +58,31 @@
     margin-left: 10rem;
 }
 
-@media(max-width:500px) {
+@media(max-width:$bp_sm) {
     .header .block .year {
         margin: 0px 0px 1rem 0px;
         display: block;
         text-align: center;
-
     }
 }
 
-.header .block .year p,.header .block .time p,.header .block .actors p {
+.header .block .year p,.header .block .time p,.header .block .genre p,.header .block .actors p {
     font-weight: bold;
     color: white;
     text-transform: capitalize;
     margin-right: .5rem;
-    font-size: 1.5rem;
-    margin-bottom: .7rem;
+    font-size: 1.3rem;
+    margin-bottom: .5rem;
     margin-top: 5px;
     display: inline-block;
 }
 
-@media(max-width:700px) {
+@media(max-width:$bp_lg) {
     .row {
-        text-align: center;
         display: block;
     }
     .movie-description {
-        width: 100% !important;
+        width: 90% !important;
     }
 }
 
@@ -93,6 +92,9 @@
     margin-top: 3rem;
     min-height: 4rem;
     font-size: 1.2rem
+}
+#movie-name h1{
+    margin-bottom: 0px;
 }
 
 .movie-description {
@@ -105,12 +107,29 @@
     color: white;
     text-align:justify;
 }
+.movie-description p{
+    margin-top: 0px;
+}
 .actors .actor-img{
-    height:200px;
+    height:170px;
 }
 .actors .actor_name{
     font-size:1rem !important;
-    margin-right:1.9rem !important;
+    margin-right:0.5rem !important;
+}
+.actors .carousel_actors{
+    width:700px;
+    margin-right:1rem;
+}
+@media (max-width:$bp_lg){
+    .actors .carousel_actors{
+        width:400px;
+    }    
+}
+@media (max-width:$bp_sm){
+    .actors .carousel_actors{
+        width:150px;
+    }    
 }
 .actors .carousel_item{
     outline:none;
@@ -134,10 +153,7 @@
 }
 
 .server {
-    /*    width: 80%;*/
     background: $primary-color;
-    /*    height: 40px;*/
-    /*    margin: 10px 0;*/
     text-align: center;
     font-size: 140%;
     font-family: changa;
@@ -179,7 +195,7 @@
     width: 100%
 }
 
-@media (max-width:70rem) {
+@media (max-width:$bp_lg) {
     .servers-section {
         width: 90%;
         max-height: 15rem;

@@ -21,6 +21,7 @@ class CreateMoviesTable extends Migration
             $table->string('image_url');
             $table->double('ratings')->nullable();
             $table->string('quality')->nullable();
+            $table->string('year')->nullable();
             $table->integer('time_length')->nullable();
             $table->bigInteger('views')->default(0);
             $table->bigInteger('category_id')->unsigned();

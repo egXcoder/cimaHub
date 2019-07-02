@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model {
     use traits\MoviesExtraOperations;
+    use traits\MoviesPopulationExtraInfo;
 
     protected $guarded = [];
 
     public function getSlug() {
-        return str_slug($this->getNameWithoutArabic());
+        return str_slug($this->name,'-',false);
     }
     
     public function getImageUrlAttribute($url) {
@@ -23,6 +24,9 @@ class Movie extends Model {
 
     public function serverLinks() {
         return $this->hasOne('App\ServerLinksForMovies');
+    }
+    public function downloadLinks() {
+        return $this->hasOne('App\DownloadLinksForMovies');
     }
     
     public function actor(){

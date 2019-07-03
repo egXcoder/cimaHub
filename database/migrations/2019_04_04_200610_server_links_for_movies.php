@@ -26,6 +26,7 @@ class ServerLinksForMovies extends Migration
             $table->string('server_8')->nullable();
             $table->string('server_9')->nullable();
             $table->string('server_10')->nullable();
+            $table->boolean('optimized')->default(false);
 
             $table->foreign('movie_id')
                     ->references('id')

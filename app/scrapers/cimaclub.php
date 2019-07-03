@@ -10,15 +10,15 @@ use App\Movie;
 class CimaClub{
     public $AllMoviespage;
     public $url;
-    
+
     public function __construct($url){
     $this->url = $url;
     $this->AllMoviespage = Curl::execute($url);
     }
 
     public static function automate(){
-        for($i=21;$i<26;$i++){
-            $x = new CimaClub('http://cimaclub.com/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A/page/'.$i.'/');
+        for($i = 21;$i < 26;$i++){
+            $x = new CimaClub('http://cimaclub.com/category/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A/page/' . $i . '/');
             $x->run(1);
         }
         App\scrapers\Cleaner::run();
@@ -37,27 +37,30 @@ class CimaClub{
         echo "\nRating and qualities and images updated Successfully...";
         return "\nsuccess";
     }
-    
+
     public function buildMoviesArray(){
         $movies['links'] = $this->match('!<div class="movie">\n<a href="(.*)\/">!');
-        $movies['image_url']=$this->match('!<img alt=".* src="(.*)" width!');
-        
-        $array=$this->match('!class="boxcontentFilm">\n<h2>(.*)<\/h2>\n<p>.*<\/p>!');
-        $movies['name']=$this->entityDecode($array);
+        $movies['image_url'] = $this->match('!<img alt=".* src="(.*)" width!');
+
+        $array = $this->match('!class="boxcontentFilm">\n<h2>(.*)<\/h2>\n<p>.*<\/p>!');
+        $movies['name'] = $this->entityDecode($array);
         $array = $this->match('!class="boxcontentFilm">\n<h2>.*<\/h2>\n<p>(.*)<\/p>!');
         $movies['description'] = $this->entityDecode($array);
         return $movies;
     }
+
     public function match($regexPattern){
         preg_match_all($regexPattern, $this->AllMoviespage, $matches);
         return $matches[1];
     }
+
     public function entityDecode($array){
         foreach ($array as $item) {
             $array[] = html_entity_decode($item);
         }
         return $array;
-    }    
+    }
+
     public function buildServersArray($moviesLinks){
         $servers = [];
         for ($i = 0;$i < count($moviesLinks);$i++) {

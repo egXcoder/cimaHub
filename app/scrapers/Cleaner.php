@@ -10,8 +10,8 @@ class Cleaner {
     public static function run() {
         echo "Removing Movies Duplications ...\n";
         Movie::removeDuplications(1);
-        // echo "Removing non working Servers ...\n";
-        // static::remove_non_working_servers();
+        echo "Removing non working Servers ...\n";
+        static::remove_non_working_servers();
         echo "Removing Actors with no image ...\n";
         static::remove_actors_without_images();
         echo "Removing Servers not pointing to movies ...\n";
@@ -25,18 +25,18 @@ class Cleaner {
         echo "Removing movies with no images  ...\n";
         static::remove_movies_with_no_images();
     }
-    // public static function remove_non_working_servers(){
-    //     //It takes very long Time
-    //     ServerLinksForMovies::latest('id')->take(60)->get()->each(function($serverLinks){
-    //         $servers = $serverLinks->getserverLinksAsArray();
-    //         $new_servers_array = [];
-    //         foreach($servers as $server){
-    //             $new_servers_array[] = TestServer::test($server);    
-    //         }
-    //         $serverLinks->setServerLinks($new_servers_array);
-    //         echo ".";
-    //     });
-    // }
+    public static function remove_non_working_servers(){
+        ServerLinksForMovies::latest('id')->where('optimized',false)->take(10)->get()->each(function($serverLinks){
+            $servers = $serverLinks->getserverLinksAsArray();
+            $new_servers_array = [];
+            foreach($servers as $server){
+                $new_servers_array[] = TestServer::test_if_server_working_and_populate_download_link($server,$serverLinks->movie->id);    
+            }
+            $serverLinks->setServerLinks($new_servers_array);
+            $serverLinks->update(['optimized'=>true]);
+            echo ".";
+        });
+    }
     public static function remove_actors_without_images(){
         Actor::all()->each(function($actor){
             if($actor->image_url===null || $actor->image_url==='') $actor->delete();
@@ -47,7 +47,7 @@ class Cleaner {
            $image_url = $movie->getAttributes()['image_url'];
             if(preg_match('!^http://!',$image_url)||preg_match('!^https://!',$image_url)){
                 try {
-                    file_get_contents($image_url);
+                    if(!file_get_contents($image_url)) $movie->delete();;
                 }catch(\Exception $ex){$movie->delete();}
             }
             echo ".";

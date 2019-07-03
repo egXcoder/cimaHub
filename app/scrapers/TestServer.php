@@ -3,6 +3,7 @@
 namespace App\scrapers;
 
 use App\Movie;
+use App\scrapers\Curl;
 
 class TestServer
 {
@@ -10,27 +11,14 @@ class TestServer
     {
         if ($server_url === null) return null;
         $server_url = static::fix_url($server_url);
-        insert_download_links($movie_id,$server_url);
+        static::insert_download_links($movie_id,$server_url);
         if (!static::test_if_server_allow_sandbox($server_url)) return null;
-        if (!static::test_if_server_working_and_populate_download_link($server_url,$movie_id)) return null;
+        // if (!static::test_if_server_working_and_populate_download_link($server_url,$movie_id)) return null;
         return $server_url;
     }
 
     public static function fix_url($server_url){
         return preg_replace('!^\/\/!', 'https://', $server_url);
-    }
-
-    public static function isDomainUp($server_url)
-    {
-        $curlInit = curl_init($server_url);
-        curl_setopt($curlInit, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($curlInit, CURLOPT_HEADER, true);
-        curl_setopt($curlInit, CURLOPT_NOBODY, true);
-        curl_setopt($curlInit, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($curlInit);
-        curl_close($curlInit);
-        return ($response) ? true : false;
     }
 
     public static function insert_download_links($movie_id,$server_url){
@@ -53,17 +41,20 @@ class TestServer
         return true;
     }
 
-    public static function test_if_server_working_and_populate_download_link($server_url,$movie_id)
+    public static function isDomainUp($server_url)
     {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $server_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-        $page = curl_exec($curl);
+        $curlInit = curl_init($server_url);
+        curl_setopt($curlInit, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($curlInit, CURLOPT_HEADER, true);
+        curl_setopt($curlInit, CURLOPT_NOBODY, true);
+        curl_setopt($curlInit, CURLOPT_RETURNTRANSFER, true);
 
-        /*test if domain up*/
-        if(!$page) return false;
+        $response = curl_exec($curlInit);
+        curl_close($curlInit);
+        return ($response) ? true : false;
+    }
 
+    public static function test_if_server_working($page){
         /*test if server is working*/
         $errors = ['sorry', 'not found', 'has not been found', 'has been blocked', 'deleted', 'not available'];
         foreach ($errors as $error) {
@@ -71,12 +62,29 @@ class TestServer
                 return false;
             }
         }
-        
+    }
+
+    public static function populate_download_link($page,$movie){
+        /*populate download link if exist on source*/
         if(preg_match('!(http.+\.mp4)!',$page,$download_link_matches)){
-            $movie = Movie::find($movie_id);
             $movie->downloadLinks->set_download_link($download_link_matches[1]);
-            return true;
         }
-        return true;
+    }
+
+    public static function test_if_server_working_and_populate_download_link($server_url,$movie_id)
+    {
+        if ($server_url === null) return null;
+        $server_url = static::fix_url($server_url);
+
+        $page = Curl::execute($server_url);
+
+        /*test if domain up*/
+        if(!$page) return null;
+
+        if(!static::test_if_server_working($page)) return null;    
+
+        $movie = Movie::find($movie_id);
+        static::populate_download_link($page,$movie);
+        return $server_url;
     }
 }

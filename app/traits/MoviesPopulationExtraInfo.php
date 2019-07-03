@@ -8,6 +8,7 @@ use App\Actor;
 use App\Scrapers\Curl;
 use App\Genre;
 use App\scrapers\TestServer;
+use App\scrapers\ReformatArrays;
 
 trait MoviesPopulationExtraInfo{
     public function initialize_imbd() {
@@ -102,16 +103,25 @@ trait MoviesPopulationExtraInfo{
             $movie->actor()->attach($id);
         }
     }
-
+    protected static function download_image($movie){
+        try{
+            $image_name = rand();
+            ReformatArrays::download_image($movie->image_url,$image_name);
+            $movie->update(['image_url' => 'uploads/' . $image_name]);
+        }catch(\Exception $ex){
+            echo $ex->getMessage();
+        }
+    }
     public static function populateImageUrl($movie,$imdb_json_generated_array) {
-        if (!array_key_exists('image', $imdb_json_generated_array)) return;
+        if (!array_key_exists('image', $imdb_json_generated_array)){
+            static::download_image($movie);
+            return;
+        }
+        
         $image_url = $imdb_json_generated_array['image'];
 
         if ($image_url != null && $image_url != 'N/A') {
-            if(!TestServer::isDomainUp($image_url)) return;
-            try { unlink(public_path() . '/' . $movie->getAttributes()['image_url']);} 
-            catch (\Exception $ex) {}
-
+            if(!TestServer::isDomainUp($image_url)) static::download_image($movie);
             $movie->update(['image_url' => $image_url]);
         }
     }

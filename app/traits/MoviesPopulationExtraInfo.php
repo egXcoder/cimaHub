@@ -48,6 +48,7 @@ trait MoviesPopulationExtraInfo{
             echo '.';
         });
     }
+
     public static function populateGenre($movie,$imdb_json_generated_array){
         if (!array_key_exists('genre', $imdb_json_generated_array)) return [];
         $genre = $imdb_json_generated_array['genre'];
@@ -103,21 +104,23 @@ trait MoviesPopulationExtraInfo{
             $movie->actor()->attach($id);
         }
     }
+
     protected static function download_image($movie){
         try{
             $image_name = rand();
             ReformatArrays::download_image($movie->image_url,$image_name);
-            $movie->update(['image_url' => 'uploads/' . $image_name]);
+            $movie->update(['image_url' => 'uploads/' . $image_name . '.jpg']);
         }catch(\Exception $ex){
             echo $ex->getMessage();
         }
     }
+
     public static function populateImageUrl($movie,$imdb_json_generated_array) {
         if (!array_key_exists('image', $imdb_json_generated_array)){
             static::download_image($movie);
             return;
         }
-        
+
         $image_url = $imdb_json_generated_array['image'];
 
         if ($image_url != null && $image_url != 'N/A') {

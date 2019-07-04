@@ -19,7 +19,7 @@ abstract class Scraper {
         $servers = $this->buildServersArray($movies['links']);
         echo "\nNow Reformatting Array ...\n";
         $formatted = ReformatArrays::reformat($movies, $servers, $category_id);
-        echo "\nNow Inserting Movies and its servers to database After Testing Servers\n";
+        echo "\nNow Inserting Movies,its servers and its download links to database After Testing Servers\n";
         InsertMovieToDatabase::insert($formatted);
         echo "\nInserted Successfully, Now Populating Extra info and also movies Images\n";
         Movie::populateExtraInfoToDatabase($category_id);

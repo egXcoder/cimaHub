@@ -36,9 +36,9 @@ class CimaFlash extends Scraper {
             }
 
             $servers[] = $movie_servers;
+            sleep(1);
             echo '.';
         }
-        sleep(1);
         return $servers;
     }
 }

@@ -21,13 +21,25 @@ class InsertMovieToDatabase
                                 'category_id' => $movie['category_id']
                             ])->id;
                             
-                DownloadLinksForMovies::create(['movie_id'=>$movie_id]);            
+                DownloadLinksForMovies::create(['movie_id'=>$movie_id]);  
+                static::insert_download_links($movie_id,$movie);          
                 static::insertServers($movie,$movie_id);
                 echo ".";
             } catch (\Exception $ex) {
                 echo $ex->getMessage() . "\n";
             }
         }
+    }
+
+    public static function insert_download_links($movie_id,$movie){
+        foreach($movie['servers'] as $server_url){
+            /*set download link*/
+            if(preg_match('!openload.co!',$server_url) || preg_match('!yourupload.com!',$server_url) || preg_match('!file_up.org!',$server_url || preg_match('!uptobox.com!',$server_url) || preg_match('!verystream.com!',$server_url))){
+                $movie = Movie::find($movie_id);
+                $movie->downloadLinks->set_download_link($server_url);
+            }
+        }
+        
     }
 
     public static function insertServers($movie,$movie_id)

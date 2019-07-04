@@ -11,7 +11,6 @@ class TestServer
     {
         if ($server_url === null) return null;
         $server_url = static::fix_url($server_url);
-        static::insert_download_links($movie_id,$server_url);
         if (!static::test_if_server_allow_sandbox($server_url)) return null;
         // if (!static::test_if_server_working_and_populate_download_link($server_url,$movie_id)) return null;
         return $server_url;
@@ -21,14 +20,6 @@ class TestServer
         return preg_replace('!^\/\/!', 'https://', $server_url);
     }
 
-    public static function insert_download_links($movie_id,$server_url){
-        /*set download link*/
-        if(preg_match('!openload.co!',$server_url)||preg_match('!yourupload.com!',$server_url)||preg_match('!file_up.org!',$server_url||preg_match('!uptobox.com!',$server_url)||preg_match('!verystream.com!',$server_url))){
-            $movie = Movie::find($movie_id);
-            $movie->downloadLinks->set_download_link($server_url);
-            return true;
-        }
-    }
 
     public static function test_if_server_allow_sandbox($server_url)
     {

@@ -35,10 +35,11 @@ abstract class Scraper {
     }
 
     public function entityDecode($array) {
+        $newArray=[];
         foreach ($array as $item) {
-            $array[] = html_entity_decode($item);
+            $newArray[] = html_entity_decode($item);
         }
-        return $array;
+        return $newArray;
     }
 
     abstract protected function buildMoviesArray();

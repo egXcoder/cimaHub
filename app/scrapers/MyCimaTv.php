@@ -12,6 +12,7 @@ class MyCimaTv extends Scraper {
 
         $array = $this->match('!class="FigureTitle"><a href=".*">(.*)<\/a>!');
         $movies['description'] = $this->entityDecode($array);
+        dd($movies);
         return $movies;
     }
 
@@ -32,7 +33,7 @@ class MyCimaTv extends Scraper {
                 $server_link_page = Curl::post('https://tv.mycima.tv/wp-content/themes/Mycima/Server.php','post=' . $movie_id . '&server=' . $server_id);
                 $server_link_page = preg_replace('!\s*!','',$server_link_page);
                 preg_match('!src="(.+)"height!', $server_link_page, $matches);
-                
+
                 if (array_key_exists(1,$matches)) {
                     try {$movie_servers[] = $matches[1];}
                     catch (\Exception $ex) {echo $ex->getMessage();}

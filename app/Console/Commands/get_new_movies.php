@@ -38,7 +38,9 @@ class get_new_movies extends Command
             $cimafree->run(1);
         }
         if($this->argument('sitename') == 'cimatv'){
-            $cimatv = new MyCimaTv('https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%a7%d8%ac%d9%86%d8%a8%d9%8a-movies-english/page/',$this->argument('page_number'));
+            $cimatv = ($this->argument('page_number') == 1)
+            ? new MyCimaTv('https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%a7%d8%ac%d9%86%d8%a8%d9%8a-movies-english' , '')
+            : new MyCimaTv('https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%a7%d8%ac%d9%86%d8%a8%d9%8a-movies-english/page/',$this->argument('page_number'));
             $cimatv->run(1);
         }
         if($this->argument('sitename') == 'cimaflash'){

@@ -44,7 +44,7 @@
             <div class="genre">
                 <p>النوع :</p>
                 @foreach ($movie->genre as $genre)
-                    <p>{{$genre->name}}  <p>
+                <p><a href="{{route('movie.genre',['name'=>$genre->name])}}">{{$genre->name}} </a><p>
                 @endforeach
             </div>
             @endif
@@ -71,12 +71,26 @@
 <div class="servers-movie-container">
     <div class="servers-section">
         @for ($i = 1; $i< count($serverLinks)+1; $i++) 
-        <div id="{{$i}}" class="server"><a>سيرفر {{$i}} </a></div>
+        <div id="{{$i}}" class="server">
+            <a>
+                @php
+                $parsed = parse_url($serverLinks[$i-1]);
+                $server_name = preg_replace('!www\.!','',$parsed['host']);
+                echo $server_name; 
+                @endphp
+            </a>
+        </div>
+        @endfor
+        @for ($i = 1; $i< count($downloadLinks)+1; $i++) 
+        <div class="download_server">
+            <a href="{{$downloadLinks[$i-1]}}">Download</a>
+            
+        </div>
         @endfor
 </div>
 
 <div class="video-container">
-    <iframe sandbox="allow-scripts allow-same-origin" width=100% height=600px src="{{$serverLinks[0]}}" frameborder=0
+    <iframe id="iframe" sandbox="allow-scripts allow-same-origin" width=100% height=600px src="{{$serverLinks[0]}}" frameborder=0
         allowfullscreen></iframe>
 </div>
 </div>
@@ -86,16 +100,17 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(()=>{
             var list = [];
             @foreach($serverLinks as $serverLink)
                 list.push("{{$serverLink}}");
             @endforeach
             $(".server").click(function(){
                 var selected_server_id = $(this).attr('id') - 1;
-                $("iframe").replaceWith(('<iframe sandbox="allow-scripts allow-same-origin" width=100% height=600px src="' + list[selected_server_id] + '" frameborder=0 allowfullscreen></iframe>')); 
+                $("iframe").replaceWith(('<iframe id="iframe" sandbox="allow-scripts allow-same-origin" width=100% height=600px src="' + list[selected_server_id] + '" frameborder=0 allowfullscreen></iframe>')); 
             });
         });
+        
 
     $('.carousel_actors').slick({
         slidesToShow: 3,

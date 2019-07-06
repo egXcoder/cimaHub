@@ -11,4 +11,5 @@
 |
 */
 Route::get('/', 'MoviesController@index')->name('home');
+Route::get('/genre/{name}', 'MoviesController@getMoviesByGenre')->name('movie.genre');
 Route::get('/{slug}', 'ServerLinksForMoviesController@index')->name('movie.single');

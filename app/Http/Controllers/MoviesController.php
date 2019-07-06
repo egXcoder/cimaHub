@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Movie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Genre;
 
 class MoviesController extends Controller {
     /**
@@ -44,5 +45,9 @@ class MoviesController extends Controller {
                     ->orderByRaw($this->query)
                     ->paginate(36);
         return view('Ajax', ['movies' => $movies]);                         
+    }
+    public function getMoviesByGenre($name){
+        $movies = Genre::where('name',$name)->get()[0]->movie()->paginate(35);
+        return view('index', ['movies' => $movies, 'title' => 'home']);
     }
 }

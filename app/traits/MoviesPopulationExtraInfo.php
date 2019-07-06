@@ -46,6 +46,7 @@ trait MoviesPopulationExtraInfo{
             static::populateDescription($movie,$imdb_json_generated_array);
             static::populateImageUrl($movie,$imdb_json_generated_array);
             echo '.';
+            sleep(1);
         });
     }
 
@@ -124,8 +125,12 @@ trait MoviesPopulationExtraInfo{
         $image_url = $imdb_json_generated_array['image'];
 
         if ($image_url != null && $image_url != 'N/A') {
-            if(!TestServer::isDomainUp($image_url)) static::download_image($movie);
-            $movie->update(['image_url' => $image_url]);
+            if(!TestServer::isDomainUp($image_url)){
+                static::download_image($movie);
+                return;
+            }else{
+                $movie->update(['image_url' => $image_url]);
+            }
         }
     }
 

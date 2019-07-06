@@ -23,7 +23,7 @@ class TestServer
 
     public static function test_if_server_allow_sandbox($server_url)
     {
-        $servers_to_be_removed = ['thevid.tv', 'streamango', 'openload.co','upvid.co','verystream.com','streamcherry.com'];
+        $servers_to_be_removed = ['thevid.tv', 'streamango', 'openload.co','upvid.co','verystream.com','streamcherry.com','oload.fun'];
         foreach ($servers_to_be_removed as $server) {
             if (preg_match('!.' . $server . '!i', $server_url, $matches)) {
                 return false;

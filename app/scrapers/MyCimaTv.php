@@ -2,7 +2,29 @@
 
 namespace App\scrapers;
 
-class MyCimaTv extends Scraper {    
+class MyCimaTv extends Scraper {   
+    public function __construct($category,$page_number) {
+        if($category == 'english'){
+            $this->category_id = 1;
+            $this->url = ($page_number == 1) 
+                ? 'https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%a7%d8%ac%d9%86%d8%a8%d9%8a-movies-english/'
+                : 'https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d8%a7%d8%ac%d9%86%d8%a8%d9%8a-movies-english/page/' . $page_number . '/';
+        }
+        if($category == 'indian'){
+            $this->category_id = 4;
+            $this->url = ($page_number == 1) 
+                ? 'https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d9%87%d9%86%d8%af%d9%89/'
+                : 'https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d9%87%d9%86%d8%af%d9%89/page/' . $page_number . '/';
+        }
+        if($category == 'animation'){
+            $this->category_id = 3;
+            $this->url = ($page_number == 1) 
+                ? 'https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d9%83%d8%b1%d8%aa%d9%88%d9%86/'
+                : 'https://tv.mycima.tv/category/%d8%a7%d9%81%d9%84%d8%a7%d9%85-film/%d8%a7%d9%81%d9%84%d8%a7%d9%85-%d9%83%d8%b1%d8%aa%d9%88%d9%86/page/' . $page_number . '/';
+        }
+        $this->AllMoviespage = Curl::execute($this->url);
+    }
+
     public function buildMoviesArray() {
         $movies['links'] = $this->match('!class="FigureTitle"><a href="(.*)">!');
         $movies['image_url'] = $this->match('!<div class="snip1543after"><\/div>\n<img width=".+" height=".+" src="(.+)" class!');
@@ -12,7 +34,6 @@ class MyCimaTv extends Scraper {
 
         $array = $this->match('!class="FigureTitle"><a href=".*">(.*)<\/a>!');
         $movies['description'] = $this->entityDecode($array);
-        dd($movies);
         return $movies;
     }
 

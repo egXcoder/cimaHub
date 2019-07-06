@@ -33,10 +33,18 @@ class InsertMovieToDatabase
 
     public static function insert_download_links($movie_id,$movie){
         foreach($movie['servers'] as $server_url){
+            $movie_record = Movie::find($movie_id);
             /*set download link*/
-            if(preg_match('!openload.co!',$server_url) || preg_match('!yourupload.com!',$server_url) || preg_match('!file_up.org!',$server_url || preg_match('!uptobox.com!',$server_url) || preg_match('!verystream.com!',$server_url))){
-                $movie = Movie::find($movie_id);
-                $movie->downloadLinks->set_download_link($server_url);
+            if(preg_match('!openload.co!',$server_url) || preg_match('!yourupload.com!',$server_url) || preg_match('!file_up.org!',$server_url || preg_match('!uptobox.com!',$server_url))){
+                $movie_record->downloadLinks->set_download_link($server_url);
+                return;
+            }
+            if(preg_match('!uqload.com!',$server_url)){
+                $page = Curl::execute($server_url);
+                if(preg_match('!(http.+\.mp4)!',$page,$download_link_matches)){
+                    $movie_record->downloadLinks->set_download_link($download_link_matches[1]);
+                    return;
+                }
             }
         }
         

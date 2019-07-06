@@ -9,7 +9,7 @@ use App\Actor;
 class Cleaner {
     public static function run() {
         echo "Removing Movies Duplications ...\n";
-        Movie::removeDuplications(1);
+        Movie::removeDuplications();
         echo "Removing non working Servers ...\n";
         static::remove_non_working_servers();
         echo "Removing Actors with no image ...\n";

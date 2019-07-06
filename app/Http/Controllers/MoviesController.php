@@ -26,7 +26,7 @@ class MoviesController extends Controller {
         $newest_movies = Movie::Where('category_id', 1)
                             ->orderBy('id', 'DESC')->take(20);
 
-        $rated_movies = Movie::Where('category_id', 1)
+        $rated_movies = Movie::Where('category_id', 3)
                     ->orderByRaw($this->query);
 
         $movies = $newest_movies->union($rated_movies)->paginate(36);

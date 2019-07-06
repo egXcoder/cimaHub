@@ -49,23 +49,21 @@ trait MoviesExtraOperations {
         return null;
     }
 
-    public static function removeDuplications($category_id) {
+    public static function removeDuplications() {
         $duplications_id = [];
 
-        Movie::latest('id')->Where('category_id', $category_id)->take(200)->get()->each(function ($movie) use (&$duplications_id) {
-            $duplication = Movie::where('name', 'like', '%' . $movie->getName() . '%')
+        Movie::latest('id')->take(200)->get()->each(function ($movie) use (&$duplications_id) {
+            $duplication = Movie::where('name', $movie->getName())
                 ->where('id', '!=', $movie->id)
-                ->where('ratings', $movie->ratings)
-                ->where('quality', $movie->quality)
                 ->first();
-
-            if ($duplication != null && !in_array($movie->id, $duplications_id)) {
+                if ($duplication != null && !in_array($movie->id, $duplications_id)) {
                 $duplications_id[] = $duplication->id;
                 $movie = Movie::find($duplication->id);
                 try {
                     unlink(public_path() . '/' . $movie->getAttributes()['image_url']);
                 } catch (\Exception $ex) {}
-                Movie::find($duplication->id)->serverLinks->delete();
+                echo $duplication->id;    
+                Movie::find($duplication->id)->delete();
             }
         });
     }

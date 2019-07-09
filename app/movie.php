@@ -13,7 +13,7 @@ class Movie extends Model {
     public function getSlug() {
         return str_slug($this->name,'-',false);
     }
-    
+
     public function getImageUrlAttribute($url) {
         return preg_match('!^http!', $url) ? $url : asset('') . $url;
     }
@@ -25,14 +25,20 @@ class Movie extends Model {
     public function serverLinks() {
         return $this->hasOne('App\ServerLinksForMovies');
     }
+
     public function downloadLinks() {
         return $this->hasOne('App\DownloadLinksForMovies');
     }
-    
+
     public function actor(){
         return $this->belongsToMany('App\Actor');
     }
+
     public function genre(){
         return $this->belongsToMany('App\Genre');
+    }
+
+    public function getRouteKeyName(){
+        return 'slug';
     }
 }

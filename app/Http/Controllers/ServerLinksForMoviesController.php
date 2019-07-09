@@ -6,10 +6,8 @@ use App\Movie;
 
 class ServerLinksForMoviesController extends Controller
 {
-    public function index($slug)
+    public function index(Movie $movie)
     {
-        $movie = Movie::where('slug', $slug)->first();
-        abort_if(($movie === null), 404);
         $this->increase_views($movie);
         $serverLinks = $movie->serverLinks->getserverLinksAsArray();
         $downloadLinks = $movie->downloadLinks->getDownloadLinksAsArray();

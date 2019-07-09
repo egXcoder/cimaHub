@@ -23,7 +23,6 @@
     @else
     <title>{{$title}}</title>
     @endif
-    <link rel="stylesheet" href="/css/app.css">    
     
     @yield('extraStylesheets')
 

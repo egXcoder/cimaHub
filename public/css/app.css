@@ -158,11 +158,18 @@ body {
   color: #AF3B6E;
 }
 
+.search-block {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  height: 200px;
+}
+
 #search-bar {
   display: block;
   position: relative;
   z-index: 1;
-  top: 5rem;
   width: 50rem;
   height: 2rem;
   margin: 0 auto;
@@ -323,10 +330,9 @@ body {
   position: relative;
   padding-top: 30px;
   padding-bottom: 6rem;
-  top: 6rem;
   grid-auto-flow: row;
   grid-auto-rows: 18rem;
-  grid-template-columns: repeat(4, 15rem);
+  grid-template-columns: repeat(4, 14rem);
   grid-gap: 2.5rem 3rem;
   -webkit-box-pack: center;
           justify-content: center;

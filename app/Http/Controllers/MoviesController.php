@@ -20,22 +20,14 @@ class MoviesController extends Controller {
     }
 
     public function index() {
-        $english_movies = Movie::Where('category_id', 1)
-                            ->orderBy('id', 'DESC')->take(16)->get();
-        $indian_movies = Movie::Where('category_id', 4)
-                            ->orderBy('id', 'DESC')->take(16)->get();
-        $animation_movies = Movie::Where('category_id', 3)
-                            ->orderBy('id', 'DESC')->take(16)->get();
-
-        // $rated_movies = Movie::Where('category_id', 1)
-        //             ->orderByRaw($this->query);
-
-        // $movies = $newest_movies->union($rated_movies)->take(20)->get();
         return view('index', [
-            'english_movies' => $english_movies, 
-            'indian_movies' => $indian_movies,
-            'animation_movies' => $animation_movies,
-            'title' => 'home']);
+            'new_movies'=>Movie::latest()->take(10)->get(),
+            'top_rated' => Movie::orderBy('ratings','DESC')->latest()->take(10)->get(),
+            'english_movies' => Movie::Where('category_id', 1)->latest()->take(16)->get(), 
+            'indian_movies' => Movie::Where('category_id', 4)->latest()->take(16)->get(),
+            'animation_movies' => Movie::Where('category_id', 3)->latest()->take(16)->get(),
+            'title' => 'home'
+        ]);
     }
 
     public function ajax_search(Request $request){

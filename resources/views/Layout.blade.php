@@ -23,9 +23,9 @@
     @else
     <title>{{$title}}</title>
     @endif
-    
     @yield('extraStylesheets')
-
+    
+    <script defer src="/js/app.js"></script>
 </head>
 
 <body>
@@ -49,8 +49,8 @@
 
         <div class="logo">
             <a href="{{route('home')}}">
-                <p class="brand">cima<span>hub</span></p>
-                <img style="vertical-align:middle;" width=80px height=50px src="/brand.png">
+                {{-- <p class="brand">cima<span>hub</span></p> --}}
+                <img style="vertical-align:middle;" width=200px height=200px src="/brand.png">
             </a>
         </div>
 
@@ -75,22 +75,7 @@
         </p>
 
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/shared.js"></script>
-    <script>
-        $(document).ready(function(){
-        var logoElement = $('.logo');
-        animateLogo('tada');
-        $(window).scroll(function(){if(window.scrollY==0) animateLogo('tada');});
-        logoElement.hover(function(){animateLogo('pulse')},function(){});
 
-        function animateLogo($animationClass){
-            logoElement.addClass('animated').addClass($animationClass);
-            logoElement.on("animationend", function(){ $(this).removeClass('animated').removeClass($animationClass) });
-        }
-        });
-        
-    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138512204-1"></script>
     <script>

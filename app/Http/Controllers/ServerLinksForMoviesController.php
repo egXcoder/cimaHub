@@ -11,7 +11,7 @@ class ServerLinksForMoviesController extends Controller
         $this->increase_views($movie);
         $serverLinks = $movie->serverLinks->getserverLinksAsArray();
         $downloadLinks = $movie->downloadLinks->getDownloadLinksAsArray();
-        
+
         if($serverLinks === []){
             $movie->delete();
             abort(404);
@@ -24,9 +24,8 @@ class ServerLinksForMoviesController extends Controller
             ->with('downloadLinks', $downloadLinks);
     }
 
-    private function increase_views($movie){
+    protected function increase_views($movie){
         $movie->views = $movie->views + 1 ;
         $movie->save();
     }
-
 }

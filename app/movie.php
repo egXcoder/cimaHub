@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Movie extends Model {
     use traits\MoviesExtraOperations;
@@ -40,5 +41,13 @@ class Movie extends Model {
 
     public function getRouteKeyName(){
         return 'slug';
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('age',function(Builder $builder){
+            $builder->where('quality','!=','0');
+        });
     }
 }

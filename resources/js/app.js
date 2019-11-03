@@ -31,3 +31,14 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app'
 // });
+
+
+import lozad from 'lozad';
+const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();
+
+import AOS from 'aos';
+AOS.init();
+
+
+require('./shared.js');

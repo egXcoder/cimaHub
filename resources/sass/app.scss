@@ -1,10 +1,10 @@
 @import url('https://use.fontawesome.com/releases/v5.8.1/css/all.css');
-@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css');
 @import url('https://fonts.googleapis.com/css?family=Archivo+Black');
 
 @import url('https://fonts.googleapis.com/css?family=Changa|Montserrat:400,700|Tajawal:400,700');
 
+@import '~aos/dist/aos.css';
 @import './utility/variables';
 
 * {
@@ -34,6 +34,7 @@ body {
     padding: 0;
     font-family: 'Montserrat', sans-serif;
     height: 100%;
+    overflow-x:hidden;
 }
 
 .main-header {
@@ -132,6 +133,12 @@ body {
 }
 
 .main-header .logo {
+    position:absolute;
+    z-index:5;
+    left:0;
+    top:0;
+    background:linear-gradient(45deg, #2c2548, #6b4a63);
+    border-bottom-right-radius:7px;
     cursor: pointer;
     min-width: 9.5rem;
 }
@@ -284,10 +291,10 @@ body {
 
 #container {
     background: url('/main-body.jpg');
-    background-size: cover;
-    min-height: 100vh;
+    background-size: contain;
+    // min-height: 100vh;
     position: relative;
-    padding-bottom: 4rem;
+    // padding-bottom: 4rem;
 }
 
 #container::after {

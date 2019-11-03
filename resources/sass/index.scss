@@ -6,11 +6,10 @@
 .section-button{
     position: relative;
     z-index:1;
-    background:$third-color;
     font-size:1.5rem;
     color:white;
 }
-p.section-button{
+.section-button{
     display:inline-block;
     padding:.3rem 1rem .3rem 1rem;
 }
